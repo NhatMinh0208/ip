@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Sphene {
     private static final String BOT_NAME = "Sphene";
     private static final String CMD_EXIT = "bye";
     private static final Scanner STDIN = new Scanner(System.in);
+
+    private static final List<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + BOT_NAME + "!");
@@ -15,7 +19,9 @@ public class Sphene {
             if (command.equals(CMD_EXIT)) {
                 break;
             } else {
-                System.out.println(command);
+                Task t = new Task(command);
+                tasks.add(t);
+                System.out.println("I've added: " + t + " to your list!");
             }
         }
 
