@@ -11,8 +11,8 @@ public class Sphene {
     private static final List<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm " + BOT_NAME + "!");
-        System.out.println("How can I serve you today, my precious citizen?");
+        System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
+        System.out.println("How can I serve you today, my dear citizen?");
 
         // Read and evaluate command loop
         while (true) {
@@ -21,7 +21,7 @@ public class Sphene {
                 break;
             } else if (command.equals(CMD_LIST)) {
                 int index = 0;
-                System.out.println("Here are the items in your list:");
+                System.out.println("Here are the tasks in your list, my dear citizen:");
                 for (Task task : tasks) {
                     index++;
                     System.out.println(index + ". " + task);
@@ -29,10 +29,10 @@ public class Sphene {
             } else {
                 Task t = new Task(command);
                 tasks.add(t);
-                System.out.println("I've added: " + t + " to your list!");
+                System.out.println("I've added: " + t.getContent() + " to your list!");
             }
         }
 
-        System.out.println("I hope to serve you again soon!");
+        System.out.println("I hope to serve you again soon, my dear citizen!");
     }
 }
