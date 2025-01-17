@@ -1,17 +1,17 @@
 import java.util.Scanner;
 
 public class Sphene {
+    private static final String BOT_NAME = "Sphene";
     private static final String CMD_EXIT = "bye";
-    public static void main(String[] args) {
-        String name = "Sphene";
+    private static final Scanner STDIN = new Scanner(System.in);
 
-        System.out.println("Hello! I'm " + name + "!");
+    public static void main(String[] args) {
+        System.out.println("Hello! I'm " + BOT_NAME + "!");
         System.out.println("How can I serve you today, my precious citizen?");
 
         // Read and evaluate command loop
         while (true) {
-            Scanner stdin = new Scanner(System.in);
-            String command = stdin.nextLine();
+            String command = STDIN.nextLine();
             if (command.equals(CMD_EXIT)) {
                 break;
             } else {
