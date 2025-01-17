@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Sphene {
     private static final String BOT_NAME = "Sphene";
     private static final String CMD_EXIT = "bye";
+    private static final String CMD_LIST = "list";
     private static final Scanner STDIN = new Scanner(System.in);
 
     private static final List<Task> tasks = new ArrayList<Task>();
@@ -18,6 +19,13 @@ public class Sphene {
             String command = STDIN.nextLine();
             if (command.equals(CMD_EXIT)) {
                 break;
+            } else if (command.equals(CMD_LIST)) {
+                int index = 0;
+                System.out.println("Here are the items in your list:");
+                for (Task task : tasks) {
+                    index++;
+                    System.out.println(index + ". " + task);
+                }
             } else {
                 Task t = new Task(command);
                 tasks.add(t);
