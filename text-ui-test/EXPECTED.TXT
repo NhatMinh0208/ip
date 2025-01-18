@@ -1,7 +1,32 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Sphene, your gracious queen!
+How can I serve you today, my dear citizen?
+I've added todo: AAAAA to your list!
+I've added event: BBBBB    to your list!
+I've added deadline: EEEEE     to your list!
+Here are the tasks in your list, my dear citizen:
+1. [T][ ] AAAAA
+2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
+3. [D][ ] EEEEE    (by: FFFF)
+I've marked task: AAAAA as done!
+I've marked task: BBBBB    as not done.
+I've marked task: EEEEE     as done!
+Here are the tasks in your list, my dear citizen:
+1. [T][X] AAAAA
+2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
+3. [D][X] EEEEE    (by: FFFF)
+I've marked task: AAAAA as not done.
+I've marked task: BBBBB    as done!
+I've marked task: EEEEE     as done!
+Here are the tasks in your list, my dear citizen:
+1. [T][ ] AAAAA
+2. [E][X] BBBBB   (from: CCCC   , to: DDDD)
+3. [D][X] EEEEE    (by: FFFF)
+My dear citizen, I'm sorry, but I don't understand what you want me to do.
+I've marked task: AAAAA as not done.
+I've marked task: BBBBB    as not done.
+I've marked task: EEEEE     as not done.
+Here are the tasks in your list, my dear citizen:
+1. [T][ ] AAAAA
+2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
+3. [D][ ] EEEEE    (by: FFFF)
+I hope to serve you again soon, my dear citizen!
