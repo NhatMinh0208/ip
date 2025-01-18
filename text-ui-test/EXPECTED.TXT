@@ -21,7 +21,8 @@ Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
 2. [E][X] BBBBB   (from: CCCC   , to: DDDD)
 3. [D][X] EEEEE    (by: FFFF)
-My dear citizen, I'm sorry, but I don't understand what you want me to do.
+My dear citizen, I'm having trouble performing your request:
+I don't know how to do this command: asd
 I've marked task: AAAAA as not done.
 I've marked task: BBBBB    as not done.
 I've marked task: EEEEE     as not done.

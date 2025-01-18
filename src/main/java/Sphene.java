@@ -73,63 +73,63 @@ public class Sphene {
         // Read and evaluate command loop
         loop:
         while (true) {
-            String command = STDIN.next();
-            switch (command) {
-                case CMD_EXIT:
-                    break loop;
-                case CMD_LIST: {
-                    listTasks();
-                    break;
-                }
-                case CMD_TODO: {
-                    try {
-                        String params = STDIN.findInLine(PATTERN_TODO);
+            try {
+                String command = STDIN.next();
+                switch (command) {
+                    case CMD_EXIT:
+                        break loop;
+                    case CMD_LIST: {
+                        listTasks();
+                        break;
+                    }
+                    case CMD_TODO: {
+                        String params = STDIN.nextLine();
                         Matcher m = PATTERN_TODO.matcher(params);
-                        m.matches();
-                        addToDo(m.group(1));
-                    } catch (Exception e) {
-                        System.out.println("ERROR: Could not parse todo line " + e.getClass());
+                        if (m.matches()) {
+                            addToDo(m.group(1));
+                        } else {
+                            throw new SyntaxException(command, params);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case CMD_DEADLINE: {
-                    try {
-                        String params = STDIN.findInLine(PATTERN_DEADLINE);
+                    case CMD_DEADLINE: {
+                        String params = STDIN.nextLine();
                         Matcher m = PATTERN_DEADLINE.matcher(params);
-                        m.matches();
-                        addDeadline(m.group(1), m.group(2));
-                    } catch (Exception e) {
-                        System.out.println("ERROR: Could not parse deadline line " + e.getClass());
+                        if (m.matches()) {
+                            addDeadline(m.group(1), m.group(2));
+                        } else {
+                            throw new SyntaxException(command, params);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case CMD_EVENT: {
-                    try {
-                        String params = STDIN.findInLine(PATTERN_EVENT);
+                    case CMD_EVENT: {
+                        String params = STDIN.nextLine();
                         Matcher m = PATTERN_EVENT.matcher(params);
-                        m.matches();
-                        addEvent(m.group(1), m.group(2), m.group(3));
-                    } catch (Exception e) {
-                        System.out.println("ERROR: Could not parse event line " + e);
+                        if (m.matches()) {
+                            addEvent(m.group(1), m.group(2), m.group(3));
+                        } else {
+                            throw new SyntaxException(command, params);
+                        }
+                        break;
                     }
-                    break;
+                    case CMD_MARK: {
+                        int index = STDIN.nextInt();
+                        markTask(index);
+                        break;
+                    }
+                    case CMD_UNMARK: {
+                        int index = STDIN.nextInt();
+                        unmarkTask(index);
+                        break;
+                    }
+                    default:
+                        throw new UnknownCommandException(command);
                 }
-                case CMD_MARK: {
-                    int index = STDIN.nextInt();
-                    markTask(index);
-                    break;
-                }
-                case CMD_UNMARK: {
-                    int index = STDIN.nextInt();
-                    unmarkTask(index);
-                    break;
-                }
-                default:
-                    System.out.println("My dear citizen, I'm sorry, but I don't understand what you want me to do.");
-                    break;
+            } catch (SpheneException e) {
+                System.out.println("My dear citizen, I'm having trouble performing your request:");
+                System.out.println(e.dialogue());
             }
         }
-
         System.out.println("I hope to serve you again soon, my dear citizen!");
     }
 }
