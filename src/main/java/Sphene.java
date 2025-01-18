@@ -18,6 +18,8 @@ public class Sphene {
     private static final Pattern PATTERN_TODO = Pattern.compile(" *(.*)");
     private static final Pattern PATTERN_DEADLINE = Pattern.compile(" *(.*)/by *(.*)");
     private static final Pattern PATTERN_EVENT = Pattern.compile(" *(.*)/from *(.*)/to *(.*)");
+    private static final Pattern PATTERN_MARK = Pattern.compile(" *([0-9]+) *");
+    private static final Pattern PATTERN_UNMARK = PATTERN_MARK;
 
     private static final Scanner STDIN = new Scanner(System.in);
 
@@ -114,6 +116,34 @@ public class Sphene {
         }
     }
 
+    private static void parseMark() throws SyntaxException, OutOfListRangeException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_MARK.matcher(params);
+        if (m.matches()) {
+            int index = Integer.parseInt(m.group(1));
+            if (index < 1 || index > tasks.size()) {
+                throw new OutOfListRangeException(CMD_MARK, params, "index", index);
+            }
+            markTask(index);
+        } else {
+            throw new SyntaxException(CMD_MARK, params);
+        }
+    }
+
+    private static void parseUnmark() throws SyntaxException, OutOfListRangeException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_UNMARK.matcher(params);
+        if (m.matches()) {
+            int index = Integer.parseInt(m.group(1));
+            if (index < 1 || index > tasks.size()) {
+                throw new OutOfListRangeException(CMD_UNMARK, params, "index", index);
+            }
+            unmarkTask(index);
+        } else {
+            throw new SyntaxException(CMD_UNMARK, params);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
         System.out.println("How can I serve you today, my dear citizen?");
@@ -127,6 +157,7 @@ public class Sphene {
                     case CMD_EXIT:
                         break loop;
                     case CMD_LIST: {
+                        String params = STDIN.nextLine();
                         listTasks();
                         break;
                     }
@@ -143,13 +174,11 @@ public class Sphene {
                         break;
                     }
                     case CMD_MARK: {
-                        int index = STDIN.nextInt();
-                        markTask(index);
+                        parseMark();
                         break;
                     }
                     case CMD_UNMARK: {
-                        int index = STDIN.nextInt();
-                        unmarkTask(index);
+                        parseUnmark();
                         break;
                     }
                     default:
