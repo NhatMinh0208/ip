@@ -1,21 +1,48 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Sphene {
     private static final String BOT_NAME = "Sphene";
+
     private static final String CMD_EXIT = "bye";
     private static final String CMD_LIST = "list";
     private static final String CMD_MARK = "mark";
     private static final String CMD_UNMARK = "unmark";
+    private static final String CMD_TODO = "todo";
+    private static final String CMD_DEADLINE = "deadline";
+    private static final String CMD_EVENT = "event";
+
+    private static final Pattern PATTERN_TODO = Pattern.compile(" *(.*)");
+    private static final Pattern PATTERN_DEADLINE = Pattern.compile(" *(.*)/by *(.*)");
+    private static final Pattern PATTERN_EVENT = Pattern.compile(" *(.*)/from *(.*)/to *(.*)");
+
     private static final Scanner STDIN = new Scanner(System.in);
 
     private static final List<Task> tasks = new ArrayList<>();
 
-    private static void addTask(String content) {
-        Task t = new Task(content);
+    private static void notifyAddTask(String type, String content) {
+        System.out.println("I've added " + type + ": " + content + " to your list!");
+    }
+
+    private static void addToDo(String content) {
+        Task t = new ToDo(content);
         tasks.add(t);
-        System.out.println("I've added task: " + t.getContent() + " to your list!");
+        notifyAddTask("todo", t.getContent());
+    }
+
+    private static void addDeadline(String content, String by) {
+        Task t = new Deadline(content, by);
+        tasks.add(t);
+        notifyAddTask("deadline", t.getContent());
+    }
+
+    private static void addEvent(String content, String from, String to) {
+        Task t = new Event(content, from, to);
+        tasks.add(t);
+        notifyAddTask("event", t.getContent());
     }
 
     private static void listTasks() {
@@ -54,6 +81,39 @@ public class Sphene {
                     listTasks();
                     break;
                 }
+                case CMD_TODO: {
+                    try {
+                        String params = STDIN.findInLine(PATTERN_TODO);
+                        Matcher m = PATTERN_TODO.matcher(params);
+                        m.matches();
+                        addToDo(m.group(1));
+                    } catch (Exception e) {
+                        System.out.println("ERROR: Could not parse todo line " + e.getClass());
+                    }
+                    break;
+                }
+                case CMD_DEADLINE: {
+                    try {
+                        String params = STDIN.findInLine(PATTERN_DEADLINE);
+                        Matcher m = PATTERN_DEADLINE.matcher(params);
+                        m.matches();
+                        addDeadline(m.group(1), m.group(2));
+                    } catch (Exception e) {
+                        System.out.println("ERROR: Could not parse deadline line " + e.getClass());
+                    }
+                    break;
+                }
+                case CMD_EVENT: {
+                    try {
+                        String params = STDIN.findInLine(PATTERN_EVENT);
+                        Matcher m = PATTERN_EVENT.matcher(params);
+                        m.matches();
+                        addEvent(m.group(1), m.group(2), m.group(3));
+                    } catch (Exception e) {
+                        System.out.println("ERROR: Could not parse event line " + e);
+                    }
+                    break;
+                }
                 case CMD_MARK: {
                     int index = STDIN.nextInt();
                     markTask(index);
@@ -65,7 +125,7 @@ public class Sphene {
                     break;
                 }
                 default:
-                    addTask(command);
+                    System.out.println("My dear citizen, I'm sorry, but I don't understand what you want me to do.");
                     break;
             }
         }
