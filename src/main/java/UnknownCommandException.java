@@ -10,6 +10,6 @@ public class UnknownCommandException extends SpheneException {
 
     @Override
     public String dialogue() {
-        return "I don't know how to do this command: " + this.getCommand();
+        return "I don't know how to complete the request '" + this.getCommand() + "'.";
     }
 }

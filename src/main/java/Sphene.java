@@ -66,6 +66,54 @@ public class Sphene {
         System.out.println("I've marked task: " + t.getContent() + " as not done.");
     }
 
+    private static void parseToDo() throws SyntaxException, EmptyFieldException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_TODO.matcher(params);
+        if (m.matches()) {
+            if (m.group(1).isEmpty()) {
+                throw new EmptyFieldException(CMD_TODO, params, "content");
+            }
+            addToDo(m.group(1));
+        } else {
+            throw new SyntaxException(CMD_TODO, params);
+        }
+    }
+
+    private static void parseDeadline() throws SyntaxException, EmptyFieldException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_DEADLINE.matcher(params);
+        if (m.matches()) {
+            if (m.group(1).isEmpty()) {
+                throw new EmptyFieldException(CMD_DEADLINE, params, "content");
+            }
+            if (m.group(2).isEmpty()) {
+                throw new EmptyFieldException(CMD_DEADLINE, params, "by");
+            }
+            addDeadline(m.group(1), m.group(2));
+        } else {
+            throw new SyntaxException(CMD_DEADLINE, params);
+        }
+    }
+
+    private static void parseEvent() throws SyntaxException, EmptyFieldException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_EVENT.matcher(params);
+        if (m.matches()) {
+            if (m.group(1).isEmpty()) {
+                throw new EmptyFieldException(CMD_EVENT, params, "content");
+            }
+            if (m.group(2).isEmpty()) {
+                throw new EmptyFieldException(CMD_EVENT, params, "from");
+            }
+            if (m.group(3).isEmpty()) {
+                throw new EmptyFieldException(CMD_EVENT, params, "to");
+            }
+            addEvent(m.group(1), m.group(2), m.group(3));
+        } else {
+            throw new SyntaxException(CMD_EVENT, params);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
         System.out.println("How can I serve you today, my dear citizen?");
@@ -83,33 +131,15 @@ public class Sphene {
                         break;
                     }
                     case CMD_TODO: {
-                        String params = STDIN.nextLine();
-                        Matcher m = PATTERN_TODO.matcher(params);
-                        if (m.matches()) {
-                            addToDo(m.group(1));
-                        } else {
-                            throw new SyntaxException(command, params);
-                        }
+                        parseToDo();
                         break;
                     }
                     case CMD_DEADLINE: {
-                        String params = STDIN.nextLine();
-                        Matcher m = PATTERN_DEADLINE.matcher(params);
-                        if (m.matches()) {
-                            addDeadline(m.group(1), m.group(2));
-                        } else {
-                            throw new SyntaxException(command, params);
-                        }
+                        parseDeadline();
                         break;
                     }
                     case CMD_EVENT: {
-                        String params = STDIN.nextLine();
-                        Matcher m = PATTERN_EVENT.matcher(params);
-                        if (m.matches()) {
-                            addEvent(m.group(1), m.group(2), m.group(3));
-                        } else {
-                            throw new SyntaxException(command, params);
-                        }
+                        parseEvent();
                         break;
                     }
                     case CMD_MARK: {
@@ -126,7 +156,7 @@ public class Sphene {
                         throw new UnknownCommandException(command);
                 }
             } catch (SpheneException e) {
-                System.out.println("My dear citizen, I'm having trouble performing your request:");
+                System.out.println("My dear citizen, I'm having trouble completing your request:");
                 System.out.println(e.dialogue());
             }
         }

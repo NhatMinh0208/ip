@@ -21,6 +21,6 @@ public class SpheneException extends Exception {
     }
 
     public String dialogue() {
-        return "There was an error when trying to perform the request: " + this.getCommand() + "with parameters: " + this.getParams();
+        return "Something has gone wrong while completing the request '" + this.getCommand() + "' with parameters: " + this.getParams();
     }
 }
