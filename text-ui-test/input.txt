@@ -15,4 +15,10 @@ unmark 1
 unmark 2
 unmark 3
 list
+todo
+deadline AAA /by
+event AAA /from /to BBB
+mark 4
+unmark 0
+event AAA /fro B /to C
 bye

@@ -21,8 +21,8 @@ Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
 2. [E][X] BBBBB   (from: CCCC   , to: DDDD)
 3. [D][X] EEEEE    (by: FFFF)
-My dear citizen, I'm having trouble performing your request:
-I don't know how to do this command: asd
+My dear citizen, I'm having trouble completing your request:
+I don't know how to complete the request 'asd'.
 I've marked task: AAAAA as not done.
 I've marked task: BBBBB    as not done.
 I've marked task: EEEEE     as not done.
@@ -30,4 +30,16 @@ Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
 2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
 3. [D][ ] EEEEE    (by: FFFF)
+My dear citizen, I'm having trouble completing your request:
+The field 'content' in the request 'todo' should not be empty.
+My dear citizen, I'm having trouble completing your request:
+The field 'by' in the request 'deadline' should not be empty.
+My dear citizen, I'm having trouble completing your request:
+The field 'from' in the request 'event' should not be empty.
+My dear citizen, I'm having trouble completing your request:
+The field 'index' in the request 'mark' has value 4. It is outside the range of valid list indices!
+My dear citizen, I'm having trouble completing your request:
+The field 'index' in the request 'unmark' has value 0. It is outside the range of valid list indices!
+My dear citizen, I'm having trouble completing your request:
+You used the wrong syntax for the request 'event'!
 I hope to serve you again soon, my dear citizen!
