@@ -11,6 +11,6 @@ public class SyntaxException extends SpheneException {
 
     @Override
     public String dialogue() {
-        return "You used the wrong syntax for the request '" + this.getCommand() + "'!";
+        return "You didn't use the correct format for the request '" + this.getCommand() + "'!";
     }
 }

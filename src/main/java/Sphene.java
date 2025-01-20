@@ -11,6 +11,7 @@ public class Sphene {
     private static final String CMD_LIST = "list";
     private static final String CMD_MARK = "mark";
     private static final String CMD_UNMARK = "unmark";
+    private static final String CMD_DELETE = "delete";
     private static final String CMD_TODO = "todo";
     private static final String CMD_DEADLINE = "deadline";
     private static final String CMD_EVENT = "event";
@@ -18,8 +19,9 @@ public class Sphene {
     private static final Pattern PATTERN_TODO = Pattern.compile(" *(.*)");
     private static final Pattern PATTERN_DEADLINE = Pattern.compile(" *(.*)/by *(.*)");
     private static final Pattern PATTERN_EVENT = Pattern.compile(" *(.*)/from *(.*)/to *(.*)");
-    private static final Pattern PATTERN_MARK = Pattern.compile(" *([0-9]+) *");
+    private static final Pattern PATTERN_MARK = Pattern.compile(" *(-?[0-9]+) *");
     private static final Pattern PATTERN_UNMARK = PATTERN_MARK;
+    private static final Pattern PATTERN_DELETE = PATTERN_MARK;
 
     private static final Scanner STDIN = new Scanner(System.in);
 
@@ -66,6 +68,11 @@ public class Sphene {
         Task t = tasks.get(index-1);
         t.unmarkDone();
         System.out.println("I've marked task: " + t.getContent() + " as not done.");
+    }
+
+    private static void deleteTask(int index) {
+        Task t = tasks.remove(index-1);
+        System.out.println("I've removed the task: " + t.getContent() + " from your list.");
     }
 
     private static void parseToDo() throws SyntaxException, EmptyFieldException {
@@ -144,6 +151,20 @@ public class Sphene {
         }
     }
 
+    private static void parseDelete() throws SyntaxException, OutOfListRangeException {
+        String params = STDIN.nextLine();
+        Matcher m = PATTERN_DELETE.matcher(params);
+        if (m.matches()) {
+            int index = Integer.parseInt(m.group(1));
+            if (index < 1 || index > tasks.size()) {
+                throw new OutOfListRangeException(CMD_DELETE, params, "index", index);
+            }
+            deleteTask(index);
+        } else {
+            throw new SyntaxException(CMD_DELETE, params);
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
         System.out.println("How can I serve you today, my dear citizen?");
@@ -179,6 +200,10 @@ public class Sphene {
                     }
                     case CMD_UNMARK: {
                         parseUnmark();
+                        break;
+                    }
+                    case CMD_DELETE: {
+                        parseDelete();
                         break;
                     }
                     default:
