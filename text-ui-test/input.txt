@@ -21,4 +21,8 @@ event AAA /from /to BBB
 mark 4
 unmark 0
 event AAA /fro B /to C
+delete 2
+list
+delete -1
+delete
 bye
