@@ -1,5 +1,5 @@
 public class EmptyFieldException extends SpheneException {
-    private String field;
+    private final String field;
     public EmptyFieldException(String command, String params, String field) {
         super(command, params);
         this.field = field;
