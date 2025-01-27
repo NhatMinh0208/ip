@@ -1,4 +1,4 @@
-public class SpheneException extends Exception {
+public abstract class SpheneException extends Exception {
     private final String command;
     private final String params;
 
