@@ -1,3 +1,9 @@
+package command;
+
+import component.TaskList;
+import component.Ui;
+import component.Storage;
+
 public class ListCommand extends Command {
     public ListCommand() {
 
@@ -9,7 +15,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException, OutOfListRangeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.print(tasks.toString());
     }
 }

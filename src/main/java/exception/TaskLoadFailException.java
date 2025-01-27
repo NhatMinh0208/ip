@@ -1,3 +1,5 @@
+package exception;
+
 public class TaskLoadFailException extends SpheneException {
 
     private final String taskString;

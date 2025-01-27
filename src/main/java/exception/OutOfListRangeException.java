@@ -1,7 +1,9 @@
-public class InvalidIntException extends SpheneException {
+package exception;
+
+public class OutOfListRangeException extends SpheneException {
     private final String field;
-    private final String value;
-    public InvalidIntException(String command, String field, String value) {
+    private final int value;
+    public OutOfListRangeException(String command, String field, int value) {
         super(command, "");
         this.field = field;
         this.value = value;
@@ -10,12 +12,12 @@ public class InvalidIntException extends SpheneException {
     @Override
     public String toString() {
         return "Field '" + this.field + "' in command '" + this.getCommand() + "' has value " + this.value
-                + ", not a valid integer";
+                + ", outside list range";
     }
 
     @Override
     public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' has value " + this.value
-                + ". It is not a valid number!\n";
+                + ". It is outside the range of valid list indices!";
     }
 }

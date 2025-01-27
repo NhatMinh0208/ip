@@ -1,7 +1,9 @@
-public class OutOfListRangeException extends SpheneException {
+package exception;
+
+public class InvalidDateTimeException extends SpheneException {
     private final String field;
-    private final int value;
-    public OutOfListRangeException(String command, String field, int value) {
+    private final String value;
+    public InvalidDateTimeException(String command, String field, String value) {
         super(command, "");
         this.field = field;
         this.value = value;
@@ -10,12 +12,13 @@ public class OutOfListRangeException extends SpheneException {
     @Override
     public String toString() {
         return "Field '" + this.field + "' in command '" + this.getCommand() + "' has value " + this.value
-                + ", outside list range";
+                + ", not a valid time";
     }
 
     @Override
     public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' has value " + this.value
-                + ". It is outside the range of valid list indices!";
+                + ". It is not a valid time!\n"
+                + "Please use the ISO format YYYY-MM-DDTHH:MM:SS.";
     }
 }

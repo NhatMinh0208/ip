@@ -1,3 +1,10 @@
+import command.Command;
+import component.Parser;
+import component.Storage;
+import component.Ui;
+import exception.SpheneException;
+import component.TaskList;
+
 public class Sphene {
     private Storage storage;
     private TaskList tasks;

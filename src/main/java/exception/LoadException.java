@@ -1,3 +1,5 @@
+package exception;
+
 public class LoadException extends SpheneException {
 
     String filePath;
