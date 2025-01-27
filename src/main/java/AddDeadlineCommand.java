@@ -19,4 +19,10 @@ public class AddDeadlineCommand extends Command {
     public String toString() {
         return "deadline " + this.content + " /by " + this.by;
     }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
+        tasks.addTask(new Deadline(content, by));
+        storage.store(tasks.serialize());
+    }
 }

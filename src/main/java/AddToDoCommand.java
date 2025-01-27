@@ -9,4 +9,10 @@ public class AddToDoCommand extends Command {
     public String toString() {
         return "todo " + this.content;
     }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
+        tasks.addTask(new ToDo(content));
+        storage.store(tasks.serialize());
+    }
 }

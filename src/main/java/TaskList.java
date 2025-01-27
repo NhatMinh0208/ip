@@ -81,6 +81,16 @@ public class TaskList {
         return strings;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (Task t : this.tasks) {
+            output.append(t.toString());
+            output.append("/n");
+        }
+        return output.toString();
+    }
+
     public void addTask(Task t) {
         this.tasks.add(t);
     }

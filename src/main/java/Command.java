@@ -12,7 +12,7 @@ public abstract class Command {
         return false;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException, OutOfListRangeException {
 
     }
 }

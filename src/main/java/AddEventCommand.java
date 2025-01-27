@@ -25,4 +25,10 @@ public class AddEventCommand extends Command {
     public String toString() {
         return "event " + this.content + " /from " + this.from + " /to " + this.to;
     }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
+        tasks.addTask(new Event(content, from, to));
+        storage.store(tasks.serialize());
+    }
 }

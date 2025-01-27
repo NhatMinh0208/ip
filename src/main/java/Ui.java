@@ -16,7 +16,7 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println("__________________________________");
+        System.out.println("__________________________________\n");
     }
 
     public String readCommand() {
@@ -25,5 +25,13 @@ public class Ui {
 
     public void showError(SpheneException e) {
         System.out.println(e.getMessage());
+    }
+
+    public void print(String s) {
+        System.out.print(s);
+    }
+
+    public void println(String s) {
+        System.out.println(s);
     }
 }

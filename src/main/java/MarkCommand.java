@@ -9,4 +9,10 @@ public class MarkCommand extends Command {
     public String toString() {
         return "mark " + this.index;
     }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException, OutOfListRangeException {
+        tasks.markTask(index);
+        storage.store(tasks.serialize());
+    }
 }
