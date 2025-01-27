@@ -6,19 +6,10 @@ public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public Event(String content, String from, String to) throws InvalidDateTimeException {
+    public Event(String content, LocalDateTime from, LocalDateTime to) throws InvalidDateTimeException {
         super(content);
-        try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("event", "from", from);
-        }
-        try {
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ISO_DATE_TIME);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("event", "to", to);
-        }
-
+        this.from = from;
+        this.to = to;
     }
 
     @Override
@@ -31,6 +22,8 @@ public class Event extends Task {
 
     @Override
     public String serialize() {
-        return "E" + "," + super.serialize() + "," + this.from + "," + this.to;
+        return "E" + "," + super.serialize()
+                + "," + this.from.format(DateTimeFormatter.ISO_DATE_TIME)
+                + "," + this.to.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 }
