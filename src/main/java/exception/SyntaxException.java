@@ -1,3 +1,5 @@
+package exception;
+
 public class SyntaxException extends SpheneException {
 
     public SyntaxException(String command, String params) {

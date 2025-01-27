@@ -1,3 +1,5 @@
+package exception;
+
 public class UnknownCommandException extends SpheneException {
     public UnknownCommandException(String command) {
         super(command, null);

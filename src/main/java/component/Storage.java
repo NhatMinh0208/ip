@@ -1,3 +1,5 @@
+package component;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import exception.SaveException;
+import exception.LoadException;
 
 public class Storage {
     private final String filePath;

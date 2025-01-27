@@ -1,5 +1,9 @@
+package component;
+
 import java.util.Scanner;
-import java.util.regex.Pattern;
+
+import command.Command;
+import exception.SpheneException;
 
 public class Ui {
     private static final String BOT_NAME = "Sphene";

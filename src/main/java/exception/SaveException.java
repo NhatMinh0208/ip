@@ -1,3 +1,5 @@
+package exception;
+
 public class SaveException extends SpheneException {
 
     String filePath;

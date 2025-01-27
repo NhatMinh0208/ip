@@ -1,3 +1,5 @@
+package exception;
+
 public class EmptyFieldException extends SpheneException {
     private final String field;
     public EmptyFieldException(String command, String params, String field) {
