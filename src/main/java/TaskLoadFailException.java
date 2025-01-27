@@ -14,7 +14,7 @@ public class TaskLoadFailException extends SpheneException {
 
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "My dear citizen, I could not retrieve a task from my memory.";
     }
 

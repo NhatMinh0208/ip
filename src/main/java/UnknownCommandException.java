@@ -9,7 +9,7 @@ public class UnknownCommandException extends SpheneException {
     }
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "I don't know how to complete the request '" + this.getCommand() + "'.";
     }
 }

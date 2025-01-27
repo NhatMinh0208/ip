@@ -14,7 +14,7 @@ public class InvalidDateTimeException extends SpheneException {
     }
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' has value " + this.value
                 + ". It is not a valid time!\n"
                 + "Please use the ISO format YYYY-MM-DDTHH:MM:SS.";

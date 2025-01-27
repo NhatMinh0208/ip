@@ -11,7 +11,7 @@ public class EmptyFieldException extends SpheneException {
     }
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' should not be empty.";
     }
 }

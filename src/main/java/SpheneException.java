@@ -20,7 +20,8 @@ public class SpheneException extends Exception {
         return "Sphene error from command: " + this.getCommand() + "with parameters: " + this.getParams();
     }
 
-    public String dialogue() {
+    @Override
+    public String getMessage() {
         return "Something has gone wrong while completing the request '" + this.getCommand() + "' with parameters: " + this.getParams();
     }
 }
