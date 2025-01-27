@@ -1,3 +1,10 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -6,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class Sphene {
     private static final String BOT_NAME = "Sphene";
+    private static final String TASK_LIST_PATH = "data/tasklist.txt";
 
     private static final String CMD_EXIT = "bye";
     private static final String CMD_LIST = "list";
@@ -31,22 +39,115 @@ public class Sphene {
         System.out.println("I've added " + type + ": " + content + " to your list!");
     }
 
+    private static void saveListToFile() {
+        try {
+            FileWriter writer = new FileWriter(TASK_LIST_PATH);
+            for (Task t : tasks) {
+                writer.write(t.serialize() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error: Task list could not be saved in file");
+        }
+    }
+
+    private static void parseSerializedTask(String taskString) {
+        String[] taskDescriptor = taskString.split(",");
+        try {
+            if (taskDescriptor.length == 0) {
+                throw new TaskLoadFailException(taskString);
+            } else {
+                switch (taskDescriptor[0]) {
+                    case "T":
+                        if (taskDescriptor.length == 3) {
+                            Task t = new ToDo(taskDescriptor[2]);
+                            if (taskDescriptor[1].equals("1")) {
+                                t.markDone();
+                            }
+                            tasks.add(t);
+                        } else {
+                            throw new TaskLoadFailException(taskString);
+                        }
+                        break;
+                    case "D":
+                        if (taskDescriptor.length == 4) {
+                            Task t = new Deadline(taskDescriptor[2],taskDescriptor[3]);
+                            if (taskDescriptor[1].equals("1")) {
+                                t.markDone();
+                            }
+                            tasks.add(t);
+                        } else {
+                            throw new TaskLoadFailException(taskString);
+                        }
+                        break;
+                    case "E":
+                        if (taskDescriptor.length == 5) {
+                            Task t = new Event(taskDescriptor[2],taskDescriptor[3],taskDescriptor[4]);
+                            if (taskDescriptor[1].equals("1")) {
+                                t.markDone();
+                            }
+                            tasks.add(t);
+                        } else {
+                            throw new TaskLoadFailException(taskString);
+                        }
+                        break;
+                    default:
+                        throw new TaskLoadFailException(taskString);
+                }
+            }
+        } catch (SpheneException e) {
+            System.out.println(e.dialogue());
+        }
+    }
+
+    private static void performStartupTasks() {
+        System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
+        System.out.println("How can I serve you today, my dear citizen?");
+
+        try {
+            Files.createDirectories(Paths.get("data"));
+        } catch (IOException e) {
+            System.out.println("Error: Data folder could not be created");
+        }
+
+        try {
+            Files.createFile(Paths.get(TASK_LIST_PATH));
+        } catch (IOException e) {
+
+        }
+
+        try {
+            File taskListFile = new File(TASK_LIST_PATH);
+            Scanner taskListScanner = new Scanner(taskListFile);
+            while (taskListScanner.hasNext()) {
+                String taskString = taskListScanner.nextLine();
+                parseSerializedTask(taskString);
+            }
+        } catch (Exception e) {
+            tasks.clear();
+            System.out.println("Error: Task list could not be retrieved from file");
+        }
+    }
+
     private static void addToDo(String content) {
         Task t = new ToDo(content);
         tasks.add(t);
         notifyAddTask("todo", t.getContent());
+        saveListToFile();
     }
 
     private static void addDeadline(String content, String by) {
         Task t = new Deadline(content, by);
         tasks.add(t);
         notifyAddTask("deadline", t.getContent());
+        saveListToFile();
     }
 
     private static void addEvent(String content, String from, String to) {
         Task t = new Event(content, from, to);
         tasks.add(t);
         notifyAddTask("event", t.getContent());
+        saveListToFile();
     }
 
     private static void listTasks() {
@@ -62,17 +163,20 @@ public class Sphene {
         Task t = tasks.get(index-1);
         t.markDone();
         System.out.println("I've marked task: " + t.getContent() + " as done!");
+        saveListToFile();
     }
 
     private static void unmarkTask(int index) {
         Task t = tasks.get(index-1);
         t.unmarkDone();
         System.out.println("I've marked task: " + t.getContent() + " as not done.");
+        saveListToFile();
     }
 
     private static void deleteTask(int index) {
         Task t = tasks.remove(index-1);
         System.out.println("I've removed the task: " + t.getContent() + " from your list.");
+        saveListToFile();
     }
 
     private static void parseToDo() throws SyntaxException, EmptyFieldException {
@@ -166,8 +270,7 @@ public class Sphene {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
-        System.out.println("How can I serve you today, my dear citizen?");
+        performStartupTasks();
 
         // Read and evaluate command loop
         loop:
@@ -175,39 +278,39 @@ public class Sphene {
             try {
                 String command = STDIN.next();
                 switch (command) {
-                    case CMD_EXIT:
-                        break loop;
-                    case CMD_LIST: {
-                        String params = STDIN.nextLine();
-                        listTasks();
-                        break;
-                    }
-                    case CMD_TODO: {
-                        parseToDo();
-                        break;
-                    }
-                    case CMD_DEADLINE: {
-                        parseDeadline();
-                        break;
-                    }
-                    case CMD_EVENT: {
-                        parseEvent();
-                        break;
-                    }
-                    case CMD_MARK: {
-                        parseMark();
-                        break;
-                    }
-                    case CMD_UNMARK: {
-                        parseUnmark();
-                        break;
-                    }
-                    case CMD_DELETE: {
-                        parseDelete();
-                        break;
-                    }
-                    default:
-                        throw new UnknownCommandException(command);
+                case CMD_EXIT:
+                    break loop;
+                case CMD_LIST: {
+                    String params = STDIN.nextLine();
+                    listTasks();
+                    break;
+                }
+                case CMD_TODO: {
+                    parseToDo();
+                    break;
+                }
+                case CMD_DEADLINE: {
+                    parseDeadline();
+                    break;
+                }
+                case CMD_EVENT: {
+                    parseEvent();
+                    break;
+                }
+                case CMD_MARK: {
+                    parseMark();
+                    break;
+                }
+                case CMD_UNMARK: {
+                    parseUnmark();
+                    break;
+                }
+                case CMD_DELETE: {
+                    parseDelete();
+                    break;
+                }
+                default:
+                    throw new UnknownCommandException(command);
                 }
             } catch (SpheneException e) {
                 System.out.println("My dear citizen, I'm having trouble completing your request:");

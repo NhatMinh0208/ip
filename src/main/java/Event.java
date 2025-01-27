@@ -12,4 +12,9 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(from: " + this.from + ", to: " + this.to + ")";
     }
+
+    @Override
+    public String serialize() {
+        return "E" + "," + super.serialize() + "," + this.from + "," + this.to;
+    }
 }
