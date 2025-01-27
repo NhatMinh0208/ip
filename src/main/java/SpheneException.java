@@ -1,4 +1,4 @@
-public class SpheneException extends Exception {
+public abstract class SpheneException extends Exception {
     private final String command;
     private final String params;
 
@@ -20,7 +20,8 @@ public class SpheneException extends Exception {
         return "Sphene error from command: " + this.getCommand() + "with parameters: " + this.getParams();
     }
 
-    public String dialogue() {
+    @Override
+    public String getMessage() {
         return "Something has gone wrong while completing the request '" + this.getCommand() + "' with parameters: " + this.getParams();
     }
 }

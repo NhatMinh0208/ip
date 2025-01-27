@@ -10,7 +10,7 @@ public class SyntaxException extends SpheneException {
     }
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "You didn't use the correct format for the request '" + this.getCommand() + "'!";
     }
 }

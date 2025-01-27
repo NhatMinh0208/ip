@@ -14,7 +14,7 @@ public class OutOfListRangeException extends SpheneException {
     }
 
     @Override
-    public String dialogue() {
+    public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' has value " + this.value
                 + ". It is outside the range of valid list indices!";
     }

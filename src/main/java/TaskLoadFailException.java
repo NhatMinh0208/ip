@@ -9,13 +9,13 @@ public class TaskLoadFailException extends SpheneException {
 
     @Override
     public String toString() {
-        return "Failed to load task " + this.taskString + "from task list file";
+        return "Failed to load task " + this.taskString + " from task list file";
     }
 
 
     @Override
-    public String dialogue() {
-        return "My dear citizen, I could not retrieve a task from my memory.";
+    public String getMessage() {
+        return "My dear citizen, I could not retrieve a task from Alexandria's memory.";
     }
 
 }

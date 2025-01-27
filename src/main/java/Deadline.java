@@ -5,13 +5,9 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private final LocalDateTime by;
 
-    public Deadline(String content, String by) throws InvalidDateTimeException {
+    public Deadline(String content, LocalDateTime by) {
         super(content);
-        try {
-            this.by = LocalDateTime.parse(by, DateTimeFormatter.ISO_DATE_TIME);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("event", "by", by);
-        }
+        this.by = by;
     }
 
     @Override
@@ -22,6 +18,6 @@ public class Deadline extends Task {
 
     @Override
     public String serialize() {
-        return "D" + "," + super.serialize() + "," + this.by;
+        return "D" + "," + super.serialize() + "," + this.by.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 }
