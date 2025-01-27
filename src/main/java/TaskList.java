@@ -84,9 +84,13 @@ public class TaskList {
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
+        int index = 0;
         for (Task t : this.tasks) {
+            index++;
+            output.append(index);
+            output.append(". ");
             output.append(t.toString());
-            output.append("/n");
+            output.append("\n");
         }
         return output.toString();
     }
@@ -96,23 +100,23 @@ public class TaskList {
     }
 
     public void markTask(int index) throws OutOfListRangeException {
-        if (index < 0 || index >= this.tasks.size()) {
+        if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("mark", "index", index);
         }
-        this.tasks.get(index).markDone();
+        this.tasks.get(index-1).markDone();
     }
 
     public void unmarkTask(int index) throws OutOfListRangeException {
-        if (index < 0 || index >= this.tasks.size()) {
-            throw new OutOfListRangeException("mark", "index", index);
+        if (index < 1 || index > this.tasks.size()) {
+            throw new OutOfListRangeException("unmark", "index", index);
         }
-        this.tasks.get(index).unmarkDone();
+        this.tasks.get(index-1).unmarkDone();
     }
 
     public Task deleteTask(int index) throws OutOfListRangeException {
-        if (index < 0 || index >= this.tasks.size()) {
-            throw new OutOfListRangeException("mark", "index", index);
+        if (index < 1 || index > this.tasks.size()) {
+            throw new OutOfListRangeException("delete", "index", index);
         }
-        return this.tasks.remove(index);
+        return this.tasks.remove(index-1);
     }
 }

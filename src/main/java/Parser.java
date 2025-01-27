@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -103,25 +104,29 @@ public class Parser {
             InvalidDateTimeException, OutOfListRangeException, InvalidIntException {
         Scanner commandScanner = new Scanner(commandStr);
         String keyword = commandScanner.next();
-        switch (keyword) {
-        case CMD_EXIT:
-            return new ExitCommand();
-        case CMD_LIST:
-            return new ListCommand();
-        case CMD_TODO:
-            return parseToDo(commandScanner.nextLine());
-        case CMD_DEADLINE:
-            return parseDeadline(commandScanner.nextLine());
-        case CMD_EVENT:
-            return parseEvent(commandScanner.nextLine());
-        case CMD_MARK:
-            return parseMark(commandScanner.nextLine());
-        case CMD_UNMARK:
-            return parseUnmark(commandScanner.nextLine());
-        case CMD_DELETE:
-            return parseDelete(commandScanner.nextLine());
-        default:
-            throw new UnknownCommandException(keyword);
+        try {
+            switch (keyword) {
+                case CMD_EXIT:
+                    return new ExitCommand();
+                case CMD_LIST:
+                    return new ListCommand();
+                case CMD_TODO:
+                    return parseToDo(commandScanner.nextLine());
+                case CMD_DEADLINE:
+                    return parseDeadline(commandScanner.nextLine());
+                case CMD_EVENT:
+                    return parseEvent(commandScanner.nextLine());
+                case CMD_MARK:
+                    return parseMark(commandScanner.nextLine());
+                case CMD_UNMARK:
+                    return parseUnmark(commandScanner.nextLine());
+                case CMD_DELETE:
+                    return parseDelete(commandScanner.nextLine());
+                default:
+                    throw new UnknownCommandException(keyword);
+            }
+        } catch (NoSuchElementException e) {
+            throw new SyntaxException(keyword, "");
         }
     }
 }

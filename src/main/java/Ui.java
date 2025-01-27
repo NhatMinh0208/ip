@@ -16,7 +16,11 @@ public class Ui {
     }
 
     public void showLine() {
-        System.out.println("__________________________________\n");
+        System.out.println("__________________________________");
+    }
+
+    public void showDone(Command c) {
+        System.out.println("I've carried out your request: " + c.toString());
     }
 
     public String readCommand() {
