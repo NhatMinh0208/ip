@@ -1,12 +1,11 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public Event(String content, LocalDateTime from, LocalDateTime to) throws InvalidDateTimeException {
+    public Event(String content, LocalDateTime from, LocalDateTime to){
         super(content);
         this.from = from;
         this.to = to;

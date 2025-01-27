@@ -22,7 +22,6 @@ public class TaskList {
                 } else {
                     throw new TaskLoadFailException(taskString);
                 }
-                break;
             case "D":
                 if (taskDescriptor.length == 4) {
                     try {
@@ -38,7 +37,6 @@ public class TaskList {
                 } else {
                     throw new TaskLoadFailException(taskString);
                 }
-                break;
             case "E":
                 if (taskDescriptor.length == 5) {
                     try {
@@ -55,7 +53,6 @@ public class TaskList {
                 } else {
                     throw new TaskLoadFailException(taskString);
                 }
-                break;
             default:
                 throw new TaskLoadFailException(taskString);
             }
@@ -76,8 +73,12 @@ public class TaskList {
         }
     }
 
-    public List<Task> getList() {
-        return this.tasks;
+    public List<String> serialize() {
+        List<String> strings = new ArrayList<>();
+        for (Task t : this.tasks) {
+            strings.add(t.serialize());
+        }
+        return strings;
     }
 
     public void addTask(Task t) {

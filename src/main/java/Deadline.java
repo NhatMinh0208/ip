@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
     private final LocalDateTime by;
 
-    public Deadline(String content, LocalDateTime by) throws InvalidDateTimeException {
+    public Deadline(String content, LocalDateTime by) {
         super(content);
         this.by = by;
     }
