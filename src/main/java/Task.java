@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private final String content;
     private boolean done;
 
@@ -18,6 +18,10 @@ public class Task {
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.content;
+    }
+
+    public String serialize() {
+        return (this.done ? "1" : "0") + "," + this.content;
     }
 
     public void markDone() {
