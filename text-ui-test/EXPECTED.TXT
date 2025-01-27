@@ -1,35 +1,35 @@
 Hello! I'm Sphene, your gracious queen!
 How can I serve you today, my dear citizen?
 I've added todo: AAAAA to your list!
-I've added event: BBBBB    to your list!
-I've added deadline: EEEEE     to your list!
+I've added event: BBBBB to your list!
+I've added deadline: EEEEE to your list!
 Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
-2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
-3. [D][ ] EEEEE    (by: FFFF)
+2. [E][ ] BBBBB (from: 03:00 03 Mar 2025, to: 03:00 06 Mar 2025)
+3. [D][ ] EEEEE (by: 21:00 31 Jan 2025)
 I've marked task: AAAAA as done!
-I've marked task: BBBBB    as not done.
-I've marked task: EEEEE     as done!
+I've marked task: BBBBB as not done.
+I've marked task: EEEEE as done!
 Here are the tasks in your list, my dear citizen:
 1. [T][X] AAAAA
-2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
-3. [D][X] EEEEE    (by: FFFF)
+2. [E][ ] BBBBB (from: 03:00 03 Mar 2025, to: 03:00 06 Mar 2025)
+3. [D][X] EEEEE (by: 21:00 31 Jan 2025)
 I've marked task: AAAAA as not done.
-I've marked task: BBBBB    as done!
-I've marked task: EEEEE     as done!
+I've marked task: BBBBB as done!
+I've marked task: EEEEE as done!
 Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
-2. [E][X] BBBBB   (from: CCCC   , to: DDDD)
-3. [D][X] EEEEE    (by: FFFF)
+2. [E][X] BBBBB (from: 03:00 03 Mar 2025, to: 03:00 06 Mar 2025)
+3. [D][X] EEEEE (by: 21:00 31 Jan 2025)
 My dear citizen, I'm having trouble completing your request:
 I don't know how to complete the request 'asd'.
 I've marked task: AAAAA as not done.
-I've marked task: BBBBB    as not done.
-I've marked task: EEEEE     as not done.
+I've marked task: BBBBB as not done.
+I've marked task: EEEEE as not done.
 Here are the tasks in your list, my dear citizen:
 1. [T][ ] AAAAA
-2. [E][ ] BBBBB   (from: CCCC   , to: DDDD)
-3. [D][ ] EEEEE    (by: FFFF)
+2. [E][ ] BBBBB (from: 03:00 03 Mar 2025, to: 03:00 06 Mar 2025)
+3. [D][ ] EEEEE (by: 21:00 31 Jan 2025)
 My dear citizen, I'm having trouble completing your request:
 The field 'content' in the request 'todo' should not be empty.
 My dear citizen, I'm having trouble completing your request:
@@ -41,5 +41,16 @@ The field 'index' in the request 'mark' has value 4. It is outside the range of 
 My dear citizen, I'm having trouble completing your request:
 The field 'index' in the request 'unmark' has value 0. It is outside the range of valid list indices!
 My dear citizen, I'm having trouble completing your request:
-You used the wrong syntax for the request 'event'!
+You didn't use the correct format for the request 'event'!
+My dear citizen, I'm having trouble completing your request:
+The field 'from' in the request 'event' has value NNN. It is not a valid time!
+Please use the ISO format YYYY-MM-DDTHH:MM:SS.
+I've removed the task: BBBBB from your list.
+Here are the tasks in your list, my dear citizen:
+1. [T][ ] AAAAA
+2. [D][ ] EEEEE (by: 21:00 31 Jan 2025)
+My dear citizen, I'm having trouble completing your request:
+The field 'index' in the request 'delete' has value -1. It is outside the range of valid list indices!
+My dear citizen, I'm having trouble completing your request:
+You didn't use the correct format for the request 'delete'!
 I hope to serve you again soon, my dear citizen!

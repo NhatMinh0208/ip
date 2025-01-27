@@ -136,14 +136,14 @@ public class Sphene {
         saveListToFile();
     }
 
-    private static void addDeadline(String content, String by) {
+    private static void addDeadline(String content, String by) throws InvalidDateTimeException {
         Task t = new Deadline(content, by);
         tasks.add(t);
         notifyAddTask("deadline", t.getContent());
         saveListToFile();
     }
 
-    private static void addEvent(String content, String from, String to) {
+    private static void addEvent(String content, String from, String to) throws InvalidDateTimeException {
         Task t = new Event(content, from, to);
         tasks.add(t);
         notifyAddTask("event", t.getContent());
@@ -186,13 +186,13 @@ public class Sphene {
             if (m.group(1).isEmpty()) {
                 throw new EmptyFieldException(CMD_TODO, params, "content");
             }
-            addToDo(m.group(1));
+            addToDo(m.group(1).trim());
         } else {
             throw new SyntaxException(CMD_TODO, params);
         }
     }
 
-    private static void parseDeadline() throws SyntaxException, EmptyFieldException {
+    private static void parseDeadline() throws SyntaxException, EmptyFieldException, InvalidDateTimeException {
         String params = STDIN.nextLine();
         Matcher m = PATTERN_DEADLINE.matcher(params);
         if (m.matches()) {
@@ -202,13 +202,13 @@ public class Sphene {
             if (m.group(2).isEmpty()) {
                 throw new EmptyFieldException(CMD_DEADLINE, params, "by");
             }
-            addDeadline(m.group(1), m.group(2));
+            addDeadline(m.group(1).trim(), m.group(2).trim());
         } else {
             throw new SyntaxException(CMD_DEADLINE, params);
         }
     }
 
-    private static void parseEvent() throws SyntaxException, EmptyFieldException {
+    private static void parseEvent() throws SyntaxException, EmptyFieldException, InvalidDateTimeException {
         String params = STDIN.nextLine();
         Matcher m = PATTERN_EVENT.matcher(params);
         if (m.matches()) {
@@ -221,7 +221,7 @@ public class Sphene {
             if (m.group(3).isEmpty()) {
                 throw new EmptyFieldException(CMD_EVENT, params, "to");
             }
-            addEvent(m.group(1), m.group(2), m.group(3));
+            addEvent(m.group(1).trim(), m.group(2).trim(), m.group(3).trim());
         } else {
             throw new SyntaxException(CMD_EVENT, params);
         }
@@ -233,7 +233,7 @@ public class Sphene {
         if (m.matches()) {
             int index = Integer.parseInt(m.group(1));
             if (index < 1 || index > tasks.size()) {
-                throw new OutOfListRangeException(CMD_MARK, params, "index", index);
+                throw new OutOfListRangeException(CMD_MARK, "index", index);
             }
             markTask(index);
         } else {
@@ -247,7 +247,7 @@ public class Sphene {
         if (m.matches()) {
             int index = Integer.parseInt(m.group(1));
             if (index < 1 || index > tasks.size()) {
-                throw new OutOfListRangeException(CMD_UNMARK, params, "index", index);
+                throw new OutOfListRangeException(CMD_UNMARK, "index", index);
             }
             unmarkTask(index);
         } else {
@@ -261,7 +261,7 @@ public class Sphene {
         if (m.matches()) {
             int index = Integer.parseInt(m.group(1));
             if (index < 1 || index > tasks.size()) {
-                throw new OutOfListRangeException(CMD_DELETE, params, "index", index);
+                throw new OutOfListRangeException(CMD_DELETE, "index", index);
             }
             deleteTask(index);
         } else {
