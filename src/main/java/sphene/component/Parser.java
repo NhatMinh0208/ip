@@ -14,14 +14,13 @@ import sphene.command.ExitCommand;
 import sphene.command.ListCommand;
 import sphene.command.MarkCommand;
 import sphene.command.UnmarkCommand;
-
+import sphene.exception.EmptyFieldException;
+import sphene.exception.InvalidDateTimeException;
 import sphene.exception.InvalidDateTimeRangeException;
 import sphene.exception.InvalidIntException;
-import sphene.exception.SyntaxException;
-import sphene.exception.EmptyFieldException;
-import sphene.exception.UnknownCommandException;
-import sphene.exception.InvalidDateTimeException;
 import sphene.exception.OutOfListRangeException;
+import sphene.exception.SyntaxException;
+import sphene.exception.UnknownCommandException;
 
 public class Parser {
     private static final String CMD_EXIT = "bye";
@@ -126,24 +125,24 @@ public class Parser {
         String keyword = commandScanner.next();
         try {
             switch (keyword) {
-                case CMD_EXIT:
-                    return new ExitCommand();
-                case CMD_LIST:
-                    return new ListCommand();
-                case CMD_TODO:
-                    return parseToDo(commandScanner.nextLine());
-                case CMD_DEADLINE:
-                    return parseDeadline(commandScanner.nextLine());
-                case CMD_EVENT:
-                    return parseEvent(commandScanner.nextLine());
-                case CMD_MARK:
-                    return parseMark(commandScanner.nextLine());
-                case CMD_UNMARK:
-                    return parseUnmark(commandScanner.nextLine());
-                case CMD_DELETE:
-                    return parseDelete(commandScanner.nextLine());
-                default:
-                    throw new UnknownCommandException(keyword);
+            case CMD_EXIT:
+                return new ExitCommand();
+            case CMD_LIST:
+                return new ListCommand();
+            case CMD_TODO:
+                return parseToDo(commandScanner.nextLine());
+            case CMD_DEADLINE:
+                return parseDeadline(commandScanner.nextLine());
+            case CMD_EVENT:
+                return parseEvent(commandScanner.nextLine());
+            case CMD_MARK:
+                return parseMark(commandScanner.nextLine());
+            case CMD_UNMARK:
+                return parseUnmark(commandScanner.nextLine());
+            case CMD_DELETE:
+                return parseDelete(commandScanner.nextLine());
+            default:
+                throw new UnknownCommandException(keyword);
             }
         } catch (NoSuchElementException e) {
             throw new SyntaxException(keyword, "");

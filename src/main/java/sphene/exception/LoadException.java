@@ -2,10 +2,10 @@ package sphene.exception;
 
 public class LoadException extends SpheneException {
 
-    String filePath;
+    private final String filePath;
 
     public LoadException(String filePath) {
-        super("","");
+        super("", "");
         this.filePath = filePath;
     }
 

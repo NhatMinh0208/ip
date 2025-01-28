@@ -1,11 +1,10 @@
 package sphene.exception;
 
 public class SaveException extends SpheneException {
-
-    String filePath;
+    private final String filePath;
 
     public SaveException(String filePath) {
-        super("","");
+        super("", "");
         this.filePath = filePath;
     }
 
@@ -19,5 +18,4 @@ public class SaveException extends SpheneException {
     public String getMessage() {
         return "My dear citizen, I could not save to the file " + this.filePath + " on Alexandria's memory.";
     }
-
 }

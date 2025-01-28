@@ -1,10 +1,10 @@
 package sphene.command;
 
-import sphene.exception.OutOfListRangeException;
-import sphene.exception.SaveException;
+import sphene.component.Storage;
 import sphene.component.TaskList;
 import sphene.component.Ui;
-import sphene.component.Storage;
+import sphene.exception.OutOfListRangeException;
+import sphene.exception.SaveException;
 
 public class DeleteCommand extends Command {
     private final int index;
