@@ -75,7 +75,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskList(List<String> taskStrings) throws TaskLoadFailException {
+    public TaskList(List<? extends String> taskStrings) throws TaskLoadFailException {
         this.tasks = new ArrayList<Task>();
         for (String s : taskStrings) {
             this.tasks.add(parseSerializedTask(s));
@@ -127,5 +127,18 @@ public class TaskList {
             throw new OutOfListRangeException("delete", "index", index);
         }
         return this.tasks.remove(index-1);
+    }
+
+    /**
+     * Search for tasks whose content contains a given query string.
+     * @param query The query string.
+     * @return A new `TaskList` containing the tasks whose content contains the query string.
+     */
+    public TaskList find(String query) {
+        TaskList result = new TaskList();
+        tasks.stream()
+                .filter((task) -> task.getContent().contains(query))
+                .forEach(result::addTask);
+        return result;
     }
 }
