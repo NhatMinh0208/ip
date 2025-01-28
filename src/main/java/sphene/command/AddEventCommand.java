@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import sphene.exception.InvalidDateTimeException;
+import sphene.exception.InvalidDateTimeRangeException;
 import sphene.exception.SaveException;
 import sphene.component.TaskList;
 import sphene.component.Ui;
@@ -16,7 +17,8 @@ public class AddEventCommand extends Command {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    public AddEventCommand(String content, String from, String to) throws InvalidDateTimeException {
+    public AddEventCommand(String content, String from, String to)
+            throws InvalidDateTimeException, InvalidDateTimeRangeException {
         this.content = content;
         try {
             this.from = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
@@ -27,6 +29,9 @@ public class AddEventCommand extends Command {
             this.to = LocalDateTime.parse(to, DateTimeFormatter.ISO_DATE_TIME);
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException("event", "to", to);
+        }
+        if (this.from.isAfter(this.to)) {
+            throw new InvalidDateTimeRangeException("event", "from_to", this.from, this.to);
         }
     }
 

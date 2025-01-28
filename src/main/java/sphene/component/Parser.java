@@ -15,6 +15,7 @@ import sphene.command.ListCommand;
 import sphene.command.MarkCommand;
 import sphene.command.UnmarkCommand;
 
+import sphene.exception.InvalidDateTimeRangeException;
 import sphene.exception.InvalidIntException;
 import sphene.exception.SyntaxException;
 import sphene.exception.EmptyFieldException;
@@ -70,7 +71,7 @@ public class Parser {
     }
 
     private static Command parseEvent(String params)
-            throws SyntaxException, EmptyFieldException, InvalidDateTimeException {
+            throws SyntaxException, EmptyFieldException, InvalidDateTimeException, InvalidDateTimeRangeException {
         Matcher m = PATTERN_EVENT.matcher(params);
         if (m.matches()) {
             if (m.group(1).isEmpty()) {
@@ -120,7 +121,7 @@ public class Parser {
 
     public static Command parse(String commandStr)
             throws UnknownCommandException, SyntaxException, EmptyFieldException,
-            InvalidDateTimeException, OutOfListRangeException, InvalidIntException {
+            InvalidDateTimeException, InvalidDateTimeRangeException, OutOfListRangeException, InvalidIntException {
         Scanner commandScanner = new Scanner(commandStr);
         String keyword = commandScanner.next();
         try {
