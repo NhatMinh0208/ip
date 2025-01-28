@@ -1,8 +1,8 @@
 package sphene.command;
 
+import sphene.component.Storage;
 import sphene.component.TaskList;
 import sphene.component.Ui;
-import sphene.component.Storage;
 
 public class ListCommand extends Command {
     public ListCommand() {

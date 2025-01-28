@@ -5,7 +5,7 @@ public class TaskLoadFailException extends SpheneException {
     private final String taskString;
 
     public TaskLoadFailException(String taskString) {
-        super("","");
+        super("", "");
         this.taskString = taskString;
     }
 

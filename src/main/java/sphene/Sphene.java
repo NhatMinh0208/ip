@@ -3,9 +3,9 @@ package sphene;
 import sphene.command.Command;
 import sphene.component.Parser;
 import sphene.component.Storage;
+import sphene.component.TaskList;
 import sphene.component.Ui;
 import sphene.exception.SpheneException;
-import sphene.component.TaskList;
 
 public class Sphene {
     private Storage storage;

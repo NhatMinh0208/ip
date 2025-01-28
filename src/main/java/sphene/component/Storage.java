@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import sphene.exception.SaveException;
 import sphene.exception.LoadException;
+import sphene.exception.SaveException;
 
 public class Storage {
     private final String filePath;

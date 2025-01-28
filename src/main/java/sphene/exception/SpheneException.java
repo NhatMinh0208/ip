@@ -24,6 +24,7 @@ public abstract class SpheneException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Something has gone wrong while completing the request '" + this.getCommand() + "' with parameters: " + this.getParams();
+        return "Something has gone wrong while completing the request '" + this.getCommand()
+                + "' with parameters: " + this.getParams();
     }
 }

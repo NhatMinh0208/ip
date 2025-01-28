@@ -8,7 +8,7 @@ import sphene.exception.SpheneException;
 public class Ui {
     private static final String BOT_NAME = "Sphene";
 
-    private final Scanner STDIN = new Scanner(System.in);
+    private static final Scanner STDIN = new Scanner(System.in);
 
     public Ui() {
 

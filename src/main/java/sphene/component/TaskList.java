@@ -9,9 +9,9 @@ import java.util.List;
 import sphene.exception.OutOfListRangeException;
 import sphene.exception.TaskLoadFailException;
 import sphene.task.Deadline;
-import sphene.task.ToDo;
 import sphene.task.Event;
 import sphene.task.Task;
+import sphene.task.ToDo;
 
 public class TaskList {
 
@@ -69,7 +69,7 @@ public class TaskList {
 
     }
 
-    List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -112,20 +112,20 @@ public class TaskList {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("mark", "index", index);
         }
-        this.tasks.get(index-1).markDone();
+        this.tasks.get(index - 1).markDone();
     }
 
     public void unmarkTask(int index) throws OutOfListRangeException {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("unmark", "index", index);
         }
-        this.tasks.get(index-1).unmarkDone();
+        this.tasks.get(index - 1).unmarkDone();
     }
 
     public Task deleteTask(int index) throws OutOfListRangeException {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("delete", "index", index);
         }
-        return this.tasks.remove(index-1);
+        return this.tasks.remove(index - 1);
     }
 }
