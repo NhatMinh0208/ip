@@ -12,13 +12,25 @@ import java.util.Scanner;
 import sphene.exception.SaveException;
 import sphene.exception.LoadException;
 
+/**
+ * Storage object for a specified file.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Creates a new storage object for the specified file.
+     * @param filePath Path of the file to create storage object for.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load all strings from the file.
+     * @return The strings loaded from the file.
+     * @throws LoadException If file cannot be loaded.
+     */
     public List<String> load() throws LoadException {
         try {
             Files.createDirectories(Paths.get("data"));
@@ -45,6 +57,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a list of strings to the file, overwriting the previous content in the file.
+     * @param serializedStrings Strings to be saved to the file.
+     * @throws SaveException If the strings cannot be saved to the file.
+     */
     public void store(List<String> serializedStrings) throws SaveException {
         try {
             FileWriter writer = new FileWriter(filePath);

@@ -6,9 +6,16 @@ import sphene.component.Ui;
 import sphene.component.Storage;
 import sphene.task.ToDo;
 
+/**
+ * Command for adding a todo task.
+ */
 public class AddToDoCommand extends Command {
     private final String content;
 
+    /**
+     * Crates a new add todo command.
+     * @param content Content of the todo.
+     */
     public AddToDoCommand(String content) {
         this.content = content;
     }

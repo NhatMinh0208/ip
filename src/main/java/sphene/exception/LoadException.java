@@ -1,9 +1,15 @@
 package sphene.exception;
 
+/**
+ * Exception thrown when data cannot be loaded from a file.
+ */
 public class LoadException extends SpheneException {
+    private final String filePath;
 
-    String filePath;
-
+    /**
+     * Creates a new load exception.
+     * @param filePath Path of the file where the exception occurs.
+     */
     public LoadException(String filePath) {
         super("","");
         this.filePath = filePath;

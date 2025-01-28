@@ -3,9 +3,19 @@ package sphene.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import sphene.exception.InvalidDateTimeException;
+
+/**
+ * A task with a time to complete by.
+ */
 public class Deadline extends Task {
     private final LocalDateTime by;
 
+    /**
+     * Creates a new deadline task.
+     * @param content The content of the deadline.
+     * @param by The deadline time.
+     */
     public Deadline(String content, LocalDateTime by) {
         super(content);
         this.by = by;

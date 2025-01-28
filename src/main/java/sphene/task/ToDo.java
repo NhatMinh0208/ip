@@ -1,6 +1,13 @@
 package sphene.task;
 
+/**
+ * A simple task with no other information.
+ */
 public class ToDo extends Task {
+    /**
+     * Creates a new todo task.
+     * @param content The content of the todo.
+     */
     public ToDo(String content) {
         super(content);
     }

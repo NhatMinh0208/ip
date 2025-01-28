@@ -7,11 +7,18 @@ import sphene.component.Ui;
 import sphene.exception.SpheneException;
 import sphene.component.TaskList;
 
+/**
+ * Main class of the Sphene bot.
+ */
 public class Sphene {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new instance of the bot.
+     * @param filePath File path to save tasks to.
+     */
     public Sphene(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -23,6 +30,9 @@ public class Sphene {
         }
     }
 
+    /**
+     * Runs the bot.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -33,9 +43,15 @@ public class Sphene {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
+                if (!isExit) {
+                    ui.showDone(c);
+                }
             } catch (SpheneException e) {
                 ui.showError(e);
             } finally {
+                if (isExit) {
+                    ui.showGoodbye();
+                }
                 ui.showLine();
             }
         }

@@ -13,8 +13,10 @@ import sphene.task.ToDo;
 import sphene.task.Event;
 import sphene.task.Task;
 
+/**
+ * Abstraction for a list of tasks.
+ */
 public class TaskList {
-
     private static Task parseSerializedTask(String taskString) throws TaskLoadFailException {
         String[] taskDescriptor = taskString.split(",");
         if (taskDescriptor.length == 0) {
@@ -69,12 +71,20 @@ public class TaskList {
 
     }
 
-    List<Task> tasks;
+    private final List<Task> tasks;
 
+    /**
+     * Creates a new empty task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Parses the given serialized task strings into a task list.
+     * @param taskStrings The serialized task strings to be parsed.
+     * @throws TaskLoadFailException If one or more serialized strings cannot be parsed.
+     */
     public TaskList(List<String> taskStrings) throws TaskLoadFailException {
         this.tasks = new ArrayList<Task>();
         for (String s : taskStrings) {
@@ -82,6 +92,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Serializes the task list.
+     * @return The serialized task strings from the list.
+     */
     public List<String> serialize() {
         List<String> strings = new ArrayList<>();
         for (Task t : this.tasks) {
@@ -104,10 +118,19 @@ public class TaskList {
         return output.toString();
     }
 
+    /**
+     * Adds a task to the list.
+     * @param t Task to be added.
+     */
     public void addTask(Task t) {
         this.tasks.add(t);
     }
 
+    /**
+     * Marks a task on the list as done.
+     * @param index Index of the task to be marked.
+     * @throws OutOfListRangeException If `index` is outside the range of valid list indices.
+     */
     public void markTask(int index) throws OutOfListRangeException {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("mark", "index", index);
@@ -115,6 +138,11 @@ public class TaskList {
         this.tasks.get(index-1).markDone();
     }
 
+    /**
+     * Marks a task on the list as not done.
+     * @param index Index of the task to be unmarked.
+     * @throws OutOfListRangeException If `index` is outside the range of valid list indices.
+     */
     public void unmarkTask(int index) throws OutOfListRangeException {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("unmark", "index", index);
@@ -122,6 +150,11 @@ public class TaskList {
         this.tasks.get(index-1).unmarkDone();
     }
 
+    /**
+     * Deletes a task on the list.
+     * @param index Index of the task to be marked.
+     * @throws OutOfListRangeException If `index` is outside the range of valid list indices.
+     */
     public Task deleteTask(int index) throws OutOfListRangeException {
         if (index < 1 || index > this.tasks.size()) {
             throw new OutOfListRangeException("delete", "index", index);

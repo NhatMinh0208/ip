@@ -1,9 +1,15 @@
 package sphene.exception;
 
+/**
+ * Exception thrown when data cannot be saved to a file.
+ */
 public class SaveException extends SpheneException {
+    private final String filePath;
 
-    String filePath;
-
+    /**
+     * Creates a new save exception.
+     * @param filePath Path of the file where the exception occurs.
+     */
     public SaveException(String filePath) {
         super("","");
         this.filePath = filePath;
