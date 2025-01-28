@@ -18,7 +18,7 @@ import sphene.task.ToDo;
  */
 public class TaskList {
     private final List<Task> tasks;
-    
+
     /**
      * Creates a new empty task list.
      */
