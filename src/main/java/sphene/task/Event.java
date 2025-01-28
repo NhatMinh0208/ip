@@ -3,10 +3,22 @@ package sphene.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import sphene.exception.InvalidDateTimeException;
+import sphene.exception.InvalidDateTimeRangeException;
+
+/**
+ * A task with a start and end time.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Creates a new event task.
+     * @param content The content of the event.
+     * @param from The event start time.
+     * @param to The event end time.
+     */
     public Event(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
         this.from = from;

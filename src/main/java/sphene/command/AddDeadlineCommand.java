@@ -11,11 +11,19 @@ import sphene.exception.InvalidDateTimeException;
 import sphene.exception.SaveException;
 import sphene.task.Deadline;
 
-
+/**
+ * Command for adding a deadline task.
+ */
 public class AddDeadlineCommand extends Command {
     private final String content;
     private final LocalDateTime by;
 
+    /**
+     * Creates a new add deadline command.
+     * @param content Content of the deadline.
+     * @param by String describing deadline time.
+     * @throws InvalidDateTimeException If `by` cannot be parsed into a valid datetime.
+     */
     public AddDeadlineCommand(String content, String by) throws InvalidDateTimeException {
         this.content = content;
         try {

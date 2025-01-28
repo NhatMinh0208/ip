@@ -1,8 +1,18 @@
 package sphene.exception;
 
+/**
+ * Exception thrown when a field in a command is not a valid datetime.
+ */
 public class InvalidDateTimeException extends SpheneException {
     private final String field;
     private final String value;
+
+    /**
+     * Creates a new invalid datetime exception.
+     * @param command The command where the exception occurs.
+     * @param field The field where the exception occurs.
+     * @param value The value of the field.
+     */
     public InvalidDateTimeException(String command, String field, String value) {
         super(command, "");
         this.field = field;
@@ -11,7 +21,7 @@ public class InvalidDateTimeException extends SpheneException {
 
     @Override
     public String toString() {
-        return "Field '" + this.field + "' in sphene.command '" + this.getCommand() + "' has value " + this.value
+        return "Field '" + this.field + "' in command '" + this.getCommand() + "' has value " + this.value
                 + ", not a valid time";
     }
 

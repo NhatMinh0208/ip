@@ -6,9 +6,16 @@ import sphene.component.Ui;
 import sphene.exception.OutOfListRangeException;
 import sphene.exception.SaveException;
 
+/**
+ * Command to mark a task on the list as not done.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
+    /**
+     * Creates an unmark command.
+     * @param index List index of the task to unmark.
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

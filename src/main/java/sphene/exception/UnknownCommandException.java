@@ -1,13 +1,21 @@
 package sphene.exception;
 
+/**
+ * Exception thrown when a command is not on the list of known commands.
+ */
 public class UnknownCommandException extends SpheneException {
+
+    /**
+     * Creates a new unknown command exception.
+     * @param command The command where the exception occurs.
+     */
     public UnknownCommandException(String command) {
         super(command, null);
     }
 
     @Override
     public String toString() {
-        return "Unknown sphene.command error from sphene.command: " + this.getCommand();
+        return "Unknown command error from command: " + this.getCommand();
     }
 
     @Override

@@ -18,10 +18,12 @@ import sphene.exception.EmptyFieldException;
 import sphene.exception.InvalidDateTimeException;
 import sphene.exception.InvalidDateTimeRangeException;
 import sphene.exception.InvalidIntException;
-import sphene.exception.OutOfListRangeException;
 import sphene.exception.SyntaxException;
 import sphene.exception.UnknownCommandException;
 
+/**
+ * Parser that parses a given command string into a Command object.
+ */
 public class Parser {
     private static final String CMD_EXIT = "bye";
     private static final String CMD_LIST = "list";
@@ -118,9 +120,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given command string.
+     * @param commandStr Command string to be parsed.
+     * @return A `Command` object containing the parsed command.
+     * @throws UnknownCommandException If the command is not on the list of known command.
+     * @throws SyntaxException If the command does not follow the required syntax.
+     * @throws EmptyFieldException If a field in the command is empty.
+     * @throws InvalidDateTimeException If a field in the command is not a valid datetime.
+     * @throws InvalidDateTimeRangeException If fields in the command do not form a valid datetime range.
+     * @throws InvalidIntException If a field in the command is not a valid integer.
+     */
     public static Command parse(String commandStr)
             throws UnknownCommandException, SyntaxException, EmptyFieldException,
-            InvalidDateTimeException, InvalidDateTimeRangeException, OutOfListRangeException, InvalidIntException {
+            InvalidDateTimeException, InvalidDateTimeRangeException, InvalidIntException {
         Scanner commandScanner = new Scanner(commandStr);
         String keyword = commandScanner.next();
         try {

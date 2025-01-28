@@ -4,7 +4,13 @@ import sphene.component.Storage;
 import sphene.component.TaskList;
 import sphene.component.Ui;
 
+/**
+ * Command to print all tasks in the task list.
+ */
 public class ListCommand extends Command {
+    /**
+     * Creates a new list command.
+     */
     public ListCommand() {
 
     }
