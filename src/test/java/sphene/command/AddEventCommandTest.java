@@ -26,4 +26,16 @@ public class AddEventCommandTest {
         assertThrowsExactly(InvalidDateTimeException.class, () ->
                 new AddEventCommand("hello", "2025-03-25T08:12:23", "2026-02-2809:23:34"));
     }
+
+    @Test
+    public void addEventCommand_correctLeapDay_Success() {
+        assertDoesNotThrow(() ->
+                new AddEventCommand("hello", "2025-03-25T08:12:23", "2028-02-29T09:23:34"));
+    }
+
+    @Test
+    public void addEventCommand_incorrectLeapDay_ExceptionThrown() {
+        assertThrowsExactly(InvalidDateTimeException.class, () ->
+                new AddEventCommand("hello", "2025-03-25T08:12:23", "2027-02-29T09:23:34"));
+    }
 }
