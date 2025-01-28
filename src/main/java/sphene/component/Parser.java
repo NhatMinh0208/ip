@@ -11,6 +11,7 @@ import sphene.command.AddToDoCommand;
 import sphene.command.Command;
 import sphene.command.DeleteCommand;
 import sphene.command.ExitCommand;
+import sphene.command.FindCommand;
 import sphene.command.ListCommand;
 import sphene.command.MarkCommand;
 import sphene.command.UnmarkCommand;
@@ -33,8 +34,10 @@ public class Parser {
     private static final String CMD_TODO = "todo";
     private static final String CMD_DEADLINE = "deadline";
     private static final String CMD_EVENT = "event";
+    private static final String CMD_FIND = "find";
 
     private static final Pattern PATTERN_TODO = Pattern.compile(" *(.*)");
+    private static final Pattern PATTERN_FIND = Pattern.compile(" *(.*)");
     private static final Pattern PATTERN_DEADLINE = Pattern.compile(" *(.*)/by *(.*)");
     private static final Pattern PATTERN_EVENT = Pattern.compile(" *(.*)/from *(.*)/to *(.*)");
     private static final Pattern PATTERN_MARK = Pattern.compile(" *(-?[0-9]+) *");
@@ -120,6 +123,19 @@ public class Parser {
         }
     }
 
+    private static Command parseFind(String params)
+            throws SyntaxException, EmptyFieldException {
+        Matcher m = PATTERN_FIND.matcher(params);
+        if (m.matches()) {
+            if (m.group(1).isEmpty()) {
+                throw new EmptyFieldException(CMD_FIND, params, "query");
+            }
+            return new FindCommand(m.group(1).trim());
+        } else {
+            throw new SyntaxException(CMD_FIND, params);
+        }
+    }
+
     /**
      * Parses the given command string.
      * @param commandStr Command string to be parsed.
@@ -154,6 +170,8 @@ public class Parser {
                 return parseUnmark(commandScanner.nextLine());
             case CMD_DELETE:
                 return parseDelete(commandScanner.nextLine());
+            case CMD_FIND:
+                return parseFind(commandScanner.nextLine());
             default:
                 throw new UnknownCommandException(keyword);
             }

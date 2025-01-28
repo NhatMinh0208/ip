@@ -18,7 +18,7 @@ import sphene.task.ToDo;
  */
 public class TaskList {
     private final List<Task> tasks;
-
+    
     /**
      * Creates a new empty task list.
      */
@@ -160,5 +160,18 @@ public class TaskList {
             throw new OutOfListRangeException("delete", "index", index);
         }
         return this.tasks.remove(index - 1);
+    }
+
+    /**
+     * Search for tasks whose content contains a given query string.
+     * @param query The query string.
+     * @return A new `TaskList` containing the tasks whose content contains the query string.
+     */
+    public TaskList find(String query) {
+        TaskList result = new TaskList();
+        tasks.stream()
+                .filter((task) -> task.getContent().contains(query))
+                .forEach(result::addTask);
+        return result;
     }
 }
