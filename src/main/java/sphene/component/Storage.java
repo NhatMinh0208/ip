@@ -3,6 +3,7 @@ package sphene.component;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -40,8 +41,10 @@ public class Storage {
 
         try {
             Files.createFile(Paths.get(filePath));
+        } catch (FileAlreadyExistsException e) {
+            // OK, intended behavior
         } catch (IOException e) {
-
+            throw new LoadException(filePath);
         }
 
         try {

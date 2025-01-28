@@ -17,6 +17,27 @@ import sphene.task.ToDo;
  * Abstraction for a list of tasks.
  */
 public class TaskList {
+    private final List<Task> tasks;
+
+    /**
+     * Creates a new empty task list.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Parses the given serialized task strings into a task list.
+     * @param taskStrings The serialized task strings to be parsed.
+     * @throws TaskLoadFailException If one or more serialized strings cannot be parsed.
+     */
+    public TaskList(List<String> taskStrings) throws TaskLoadFailException {
+        this.tasks = new ArrayList<Task>();
+        for (String s : taskStrings) {
+            this.tasks.add(parseSerializedTask(s));
+        }
+    }
+
     private static Task parseSerializedTask(String taskString) throws TaskLoadFailException {
         String[] taskDescriptor = taskString.split(",");
         if (taskDescriptor.length == 0) {
@@ -69,27 +90,6 @@ public class TaskList {
             }
         }
 
-    }
-
-    private final List<Task> tasks;
-
-    /**
-     * Creates a new empty task list.
-     */
-    public TaskList() {
-        this.tasks = new ArrayList<>();
-    }
-
-    /**
-     * Parses the given serialized task strings into a task list.
-     * @param taskStrings The serialized task strings to be parsed.
-     * @throws TaskLoadFailException If one or more serialized strings cannot be parsed.
-     */
-    public TaskList(List<String> taskStrings) throws TaskLoadFailException {
-        this.tasks = new ArrayList<Task>();
-        for (String s : taskStrings) {
-            this.tasks.add(parseSerializedTask(s));
-        }
     }
 
     /**

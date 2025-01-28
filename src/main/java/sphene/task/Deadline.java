@@ -3,8 +3,6 @@ package sphene.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import sphene.exception.InvalidDateTimeException;
-
 /**
  * A task with a time to complete by.
  */

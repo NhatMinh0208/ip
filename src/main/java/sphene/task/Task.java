@@ -5,7 +5,7 @@ package sphene.task;
  */
 public abstract class Task {
     private final String content;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Creates a new generic task.
@@ -13,11 +13,11 @@ public abstract class Task {
      */
     public Task(String content) {
         this.content = content;
-        this.done = false;
+        this.isDone = false;
     }
 
     private String getStatusIcon() {
-        return "[" + (this.done ? "X" : " ") + "]";
+        return "[" + (this.isDone ? "X" : " ") + "]";
     }
 
     public String getContent() {
@@ -34,20 +34,20 @@ public abstract class Task {
      * @return The serialized task string.
      */
     public String serialize() {
-        return (this.done ? "1" : "0") + "," + this.content;
+        return (this.isDone ? "1" : "0") + "," + this.content;
     }
 
     /**
      * Marks the task as done.
      */
     public void markDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void unmarkDone() {
-        this.done = false;
+        this.isDone = false;
     }
 }
