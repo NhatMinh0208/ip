@@ -1,0 +1,47 @@
+package sphene;
+
+import sphene.command.Command;
+import sphene.component.Parser;
+import sphene.component.Storage;
+import sphene.component.Ui;
+import sphene.exception.SpheneException;
+import sphene.component.TaskList;
+
+public class Sphene {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Sphene(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (SpheneException e) {
+            ui.showError(e);
+            tasks = new TaskList();
+        }
+    }
+
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine(); // show the divider line ("_______")
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (SpheneException e) {
+                ui.showError(e);
+            } finally {
+                ui.showLine();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Sphene("data/tasks.txt").run();
+    }
+}
