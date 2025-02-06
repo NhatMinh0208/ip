@@ -22,14 +22,18 @@ public class Ui {
 
     private final Sphene sphene;
     private final Stage stage;
+    private MainWindow window;
 
     private void initializeStage() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Sphene.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            window = fxmlLoader.getController();
+            window.setUi(this);  // inject this Ui instance into the window
+
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setUi(this);  // inject this Ui instance into the window
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,22 +50,29 @@ public class Ui {
         this.stage = stage;
 
         initializeStage();
-        stage.show();
+    }
+
+    /**
+     * Handles the input the user just submitted via the chatbox.
+     * @param input The input from the user.
+     */
+    public void handleInput(String input) {
+        sphene.handleCommand(input);
     }
 
     /**
      * Shows the welcome message (on startup).
      */
     public void showWelcome() {
-        System.out.println("Hello! I'm " + BOT_NAME + ", your gracious queen!");
-        System.out.println("How can I serve you today, my dear citizen?");
+        window.showSpheneDialog("Hello! I'm " + BOT_NAME + ", your gracious queen!");
+        window.showSpheneDialog("How can I serve you today, my dear citizen?");
     }
 
     /**
      * Shows the goodbye message (on exit).
      */
     public void showGoodbye() {
-        System.out.println("I hope to serve you again, my dear citizen!");
+        window.showSpheneDialog("I hope to serve you again, my dear citizen!");
     }
 
     /**
@@ -76,15 +87,7 @@ public class Ui {
      * @param c The executed command.
      */
     public void showDone(Command c) {
-        System.out.println("I've carried out your request: " + c.toString());
-    }
-
-    /**
-     * Handles the input the user just submitted via the chatbox.
-     * @param input The input from the user.
-     */
-    public void handleInput(String input) {
-        sphene.handleCommand(input);
+        window.showSpheneDialog("I've carried out your request: " + c.toString());
     }
 
     /**
@@ -92,7 +95,8 @@ public class Ui {
      * @param e The exception to be shown.
      */
     public void showError(SpheneException e) {
-        System.out.println(e.getMessage());
+        window.showSpheneDialog("My dear citizen, I'm having trouble carrying out your request.");
+        window.showSpheneDialog(e.getMessage());
     }
 
     /**
@@ -100,14 +104,6 @@ public class Ui {
      * @param s The string to be printed.
      */
     public void print(String s) {
-        System.out.print(s);
-    }
-
-    /**
-     * Prints a string to the user, followed by a newline.
-     * @param s The string to be printed.
-     */
-    public void println(String s) {
-        System.out.println(s);
+        window.showSpheneDialog(s);
     }
 }

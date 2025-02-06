@@ -23,9 +23,14 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image spheneImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image spheneImage = new Image(this.getClass().getResourceAsStream("/images/Sphene.png"));
 
     private Ui ui;
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing the chatbot's reply
@@ -34,7 +39,29 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        userInput.clear();
+        showUserDialog(input);
         ui.handleInput(input);
+    }
+
+    /**
+     * Adds a chat bubble showing text from the user.
+     * @param text The text to display.
+     */
+    public void showUserDialog(String text) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(text, userImage)
+        );
+    }
+
+    /**
+     * Adds a chat bubble showing text from the chatbot.
+     * @param text The text to display.
+     */
+    public void showSpheneDialog(String text) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSpheneDialog(text, spheneImage)
+        );
     }
 
     /**
