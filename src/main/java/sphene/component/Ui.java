@@ -1,8 +1,15 @@
 package sphene.component;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import sphene.Sphene;
 import sphene.command.Command;
+import sphene.component.ui.MainWindow;
 import sphene.exception.SpheneException;
 
 /**
@@ -13,11 +20,33 @@ public class Ui {
 
     private static final Scanner STDIN = new Scanner(System.in);
 
-    /**
-     * Creates a new UI object.
-     */
-    public Ui() {
+    private final Sphene sphene;
+    private final Stage stage;
 
+    private void initializeStage() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Sphene.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setUi(this);  // inject this Ui instance into the window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new Ui object.
+     * @param sphene The Sphene instance that this Ui interacts with.
+     * @param stage The Stage that this Ui interacts with.
+     */
+    public Ui(Sphene sphene, Stage stage) {
+        this.sphene = sphene;
+        this.stage = stage;
+
+        initializeStage();
+        stage.show();
     }
 
     /**
@@ -51,11 +80,11 @@ public class Ui {
     }
 
     /**
-     * Reads a command line from the user.
-     * @return The read command string.
+     * Handles the input the user just submitted via the chatbox.
+     * @param input The input from the user.
      */
-    public String readCommand() {
-        return STDIN.nextLine();
+    public void handleInput(String input) {
+        sphene.handleCommand(input);
     }
 
     /**

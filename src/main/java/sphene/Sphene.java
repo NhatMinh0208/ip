@@ -1,5 +1,8 @@
 package sphene;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import sphene.command.Command;
 import sphene.component.Parser;
 import sphene.component.Storage;
@@ -10,17 +13,12 @@ import sphene.exception.SpheneException;
 /**
  * Main class of the Sphene bot.
  */
-public class Sphene {
+public class Sphene extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    /**
-     * Creates a new instance of the bot.
-     * @param filePath File path to save tasks to.
-     */
-    public Sphene(String filePath) {
-        ui = new Ui();
+    private void initializeStorage(String filePath) {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
@@ -31,33 +29,31 @@ public class Sphene {
     }
 
     /**
-     * Runs the bot.
+     * Parses and executes a command from a given command string.
+     * @param fullCommand The command string to process.
      */
-    public void run() {
-        ui.showWelcome();
+    public void handleCommand(String fullCommand) {
         boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                if (!isExit) {
-                    ui.showDone(c);
-                }
-            } catch (SpheneException e) {
-                ui.showError(e);
-            } finally {
-                if (isExit) {
-                    ui.showGoodbye();
-                }
-                ui.showLine();
+        try {
+            Command c = Parser.parse(fullCommand);
+            c.execute(tasks, ui, storage);
+            isExit = c.isExit();
+            if (!isExit) {
+                ui.showDone(c);
+            }
+        } catch (SpheneException e) {
+            ui.showError(e);
+        } finally {
+            if (isExit) {
+                Platform.exit();
             }
         }
     }
 
-    public static void main(String[] args) {
-        new Sphene("data/tasks.txt").run();
+    @Override
+    public void start(Stage stage) {
+        initializeStorage("data/tasks.txt");
+        ui = new Ui(this, stage);
+        ui.showWelcome();
     }
 }
