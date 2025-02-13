@@ -42,54 +42,67 @@ public class TaskList {
         String[] taskDescriptor = taskString.split(",");
         if (taskDescriptor.length == 0) {
             throw new TaskLoadFailException(taskString);
-        } else {
-            switch (taskDescriptor[0]) {
-            case "T":
-                if (taskDescriptor.length == 3) {
-                    Task t = new ToDo(taskDescriptor[2]);
-                    if (taskDescriptor[1].equals("1")) {
-                        t.markDone();
-                    }
-                    return t;
-                } else {
-                    throw new TaskLoadFailException(taskString);
-                }
-            case "D":
-                if (taskDescriptor.length == 4) {
-                    try {
-                        Task t = new Deadline(taskDescriptor[2],
-                                LocalDateTime.parse(taskDescriptor[3], DateTimeFormatter.ISO_DATE_TIME));
-                        if (taskDescriptor[1].equals("1")) {
-                            t.markDone();
-                        }
-                        return t;
-                    } catch (DateTimeParseException e) {
-                        throw new TaskLoadFailException(taskString);
-                    }
-                } else {
-                    throw new TaskLoadFailException(taskString);
-                }
-            case "E":
-                if (taskDescriptor.length == 5) {
-                    try {
-                        Task t = new Event(taskDescriptor[2],
-                                LocalDateTime.parse(taskDescriptor[3], DateTimeFormatter.ISO_DATE_TIME),
-                                LocalDateTime.parse(taskDescriptor[4], DateTimeFormatter.ISO_DATE_TIME));
-                        if (taskDescriptor[1].equals("1")) {
-                            t.markDone();
-                        }
-                        return t;
-                    } catch (DateTimeParseException e) {
-                        throw new TaskLoadFailException(taskString);
-                    }
-                } else {
-                    throw new TaskLoadFailException(taskString);
-                }
-            default:
-                throw new TaskLoadFailException(taskString);
-            }
         }
 
+        switch (taskDescriptor[0]) {
+        case "T":
+            return parseTodo(taskString, taskDescriptor);
+
+        case "D":
+            return parseDeadline(taskString, taskDescriptor);
+
+        case "E":
+            return parseEvent(taskString, taskDescriptor);
+
+        default:
+            throw new TaskLoadFailException(taskString);
+        }
+    }
+
+    private static Task parseEvent(String taskString, String[] taskDescriptor) throws TaskLoadFailException {
+
+        if (taskDescriptor.length != 5) {
+            throw new TaskLoadFailException(taskString);
+        }
+        try {
+            Task t = new Event(taskDescriptor[2],
+                    LocalDateTime.parse(taskDescriptor[3], DateTimeFormatter.ISO_DATE_TIME),
+                    LocalDateTime.parse(taskDescriptor[4], DateTimeFormatter.ISO_DATE_TIME));
+            if (taskDescriptor[1].equals("1")) {
+                t.markDone();
+            }
+            return t;
+        } catch (DateTimeParseException e) {
+            throw new TaskLoadFailException(taskString);
+        }
+    }
+
+    private static Task parseDeadline(String taskString, String[] taskDescriptor) throws TaskLoadFailException {
+
+        if (taskDescriptor.length != 4) {
+            throw new TaskLoadFailException(taskString);
+        }
+        try {
+            Task t = new Deadline(taskDescriptor[2],
+                    LocalDateTime.parse(taskDescriptor[3], DateTimeFormatter.ISO_DATE_TIME));
+            if (taskDescriptor[1].equals("1")) {
+                t.markDone();
+            }
+            return t;
+        } catch (DateTimeParseException e) {
+            throw new TaskLoadFailException(taskString);
+        }
+    }
+
+    private static Task parseTodo(String taskString, String[] taskDescriptor) throws TaskLoadFailException {
+        if (taskDescriptor.length != 3) {
+            throw new TaskLoadFailException(taskString);
+        }
+        Task t = new ToDo(taskDescriptor[2]);
+        if (taskDescriptor[1].equals("1")) {
+            t.markDone();
+        }
+        return t;
     }
 
     /**
@@ -110,10 +123,7 @@ public class TaskList {
         int index = 0;
         for (Task t : this.tasks) {
             index++;
-            output.append(index);
-            output.append(". ");
-            output.append(t.toString());
-            output.append("\n");
+            output.append(index).append(". ").append(t.toString()).append("\n");
         }
         return output.toString();
     }

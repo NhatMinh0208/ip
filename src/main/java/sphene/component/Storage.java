@@ -30,8 +30,8 @@ public class Storage {
     private List<String> getStrings() throws LoadException {
         try {
             File taskListFile = new File(filePath);
-            List<String> serializedStrings = new ArrayList<>();
             Scanner taskListScanner = new Scanner(taskListFile);
+            List<String> serializedStrings = new ArrayList<>();
             while (taskListScanner.hasNext()) {
                 serializedStrings.add(taskListScanner.nextLine());
             }
