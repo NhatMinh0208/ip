@@ -14,6 +14,7 @@ import sphene.command.ExitCommand;
 import sphene.command.FindCommand;
 import sphene.command.ListCommand;
 import sphene.command.MarkCommand;
+import sphene.command.SortCommand;
 import sphene.command.UnmarkCommand;
 import sphene.exception.EmptyFieldException;
 import sphene.exception.InvalidDateTimeException;
@@ -28,6 +29,7 @@ import sphene.exception.UnknownCommandException;
 public class Parser {
     private static final String CMD_EXIT = "bye";
     private static final String CMD_LIST = "list";
+    private static final String CMD_SORT = "sort";
     private static final String CMD_MARK = "mark";
     private static final String CMD_UNMARK = "unmark";
     private static final String CMD_DELETE = "delete";
@@ -35,6 +37,7 @@ public class Parser {
     private static final String CMD_DEADLINE = "deadline";
     private static final String CMD_EVENT = "event";
     private static final String CMD_FIND = "find";
+
 
     private static final Pattern PATTERN_TODO = Pattern.compile(" *(.*)");
     private static final Pattern PATTERN_FIND = Pattern.compile(" *(.*)");
@@ -158,6 +161,8 @@ public class Parser {
                 return new ExitCommand();
             case CMD_LIST:
                 return new ListCommand();
+            case CMD_SORT:
+                return new SortCommand();
             case CMD_TODO:
                 return parseToDo(commandScanner.nextLine());
             case CMD_DEADLINE:
