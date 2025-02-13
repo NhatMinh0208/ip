@@ -24,22 +24,6 @@ public class Ui {
     private final Stage stage;
     private MainWindow window;
 
-    private void initializeStage() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Sphene.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-
-            window = fxmlLoader.getController();
-            window.setUi(this);  // inject this Ui instance into the window
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Creates a new Ui object.
      * @param sphene The Sphene instance that this Ui interacts with.
@@ -50,6 +34,22 @@ public class Ui {
         this.stage = stage;
 
         initializeStage();
+    }
+
+    private void initializeStage() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Sphene.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+
+            window = fxmlLoader.getController();
+            window.setUi(this); // inject this Ui instance into the window
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
