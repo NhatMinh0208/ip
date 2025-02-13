@@ -17,43 +17,43 @@ import sphene.task.Event;
  */
 public class AddEventCommand extends Command {
     private final String content;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Creates a new add event command.
      * @param content Content of the event.
-     * @param from String describing event start time.
-     * @param to String describing event end  time.
-     * @throws InvalidDateTimeException If `from` or `to` cannot be parsed into a valid datetime.
-     * @throws InvalidDateTimeRangeException If `from` and `to` do not form a valid datetime range.
+     * @param startTime String describing event start time.
+     * @param endTime String describing event end time.
+     * @throws InvalidDateTimeException If `startTime` or `endTime` cannot be parsed into a valid datetime.
+     * @throws InvalidDateTimeRangeException If `startTime` and `endTime` do not form a valid datetime range.
      */
-    public AddEventCommand(String content, String from, String to)
+    public AddEventCommand(String content, String startTime, String endTime)
             throws InvalidDateTimeException, InvalidDateTimeRangeException {
         this.content = content;
         try {
-            this.from = LocalDateTime.parse(from, DateTimeFormatter.ISO_DATE_TIME);
+            this.startTime = LocalDateTime.parse(startTime, DateTimeFormatter.ISO_DATE_TIME);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("event", "from", from);
+            throw new InvalidDateTimeException("event", "from", startTime);
         }
         try {
-            this.to = LocalDateTime.parse(to, DateTimeFormatter.ISO_DATE_TIME);
+            this.endTime = LocalDateTime.parse(endTime, DateTimeFormatter.ISO_DATE_TIME);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("event", "to", to);
+            throw new InvalidDateTimeException("event", "to", endTime);
         }
-        if (this.from.isAfter(this.to)) {
-            throw new InvalidDateTimeRangeException("event", "from_to", this.from, this.to);
+        if (this.startTime.isAfter(this.endTime)) {
+            throw new InvalidDateTimeRangeException("event", "from_to", this.startTime, this.endTime);
         }
     }
 
     @Override
     public String toString() {
-        return "event " + this.content + " /from " + this.from + " /to " + this.to;
+        return "event " + this.content + " /from " + this.startTime + " /to " + this.endTime;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
-        tasks.addTask(new Event(content, from, to));
+        tasks.addTask(new Event(content, startTime, endTime));
         storage.store(tasks.serialize());
     }
 }
