@@ -16,31 +16,31 @@ import sphene.task.Deadline;
  */
 public class AddDeadlineCommand extends Command {
     private final String content;
-    private final LocalDateTime by;
+    private final LocalDateTime deadlineTime;
 
     /**
      * Creates a new add deadline command.
      * @param content Content of the deadline.
-     * @param by String describing deadline time.
-     * @throws InvalidDateTimeException If `by` cannot be parsed into a valid datetime.
+     * @param deadlineTime String describing deadline time.
+     * @throws InvalidDateTimeException If `deadlineTime` cannot be parsed into a valid datetime.
      */
-    public AddDeadlineCommand(String content, String by) throws InvalidDateTimeException {
+    public AddDeadlineCommand(String content, String deadlineTime) throws InvalidDateTimeException {
         this.content = content;
         try {
-            this.by = LocalDateTime.parse(by, DateTimeFormatter.ISO_DATE_TIME);
+            this.deadlineTime = LocalDateTime.parse(deadlineTime, DateTimeFormatter.ISO_DATE_TIME);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException("deadline", "by", by);
+            throw new InvalidDateTimeException("deadline", "by", deadlineTime);
         }
     }
 
     @Override
     public String toString() {
-        return "deadline " + this.content + " /by " + this.by;
+        return "deadline " + this.content + " /by " + this.deadlineTime;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
-        tasks.addTask(new Deadline(content, by));
+        tasks.addTask(new Deadline(content, deadlineTime));
         storage.store(tasks.serialize());
     }
 }
