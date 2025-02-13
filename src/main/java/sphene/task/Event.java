@@ -7,33 +7,33 @@ import java.time.format.DateTimeFormatter;
  * A task with a start and end time.
  */
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTIme;
 
     /**
      * Creates a new event task.
      * @param content The content of the event.
-     * @param from The event start time.
-     * @param to The event end time.
+     * @param startTime The event start time.
+     * @param endTIme The event end time.
      */
-    public Event(String content, LocalDateTime from, LocalDateTime to) {
+    public Event(String content, LocalDateTime startTime, LocalDateTime endTIme) {
         super(content);
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTIme = endTIme;
     }
 
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy"))
-                + ", to: " + this.to.format(DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy"))
+                + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy"))
+                + ", to: " + this.endTIme.format(DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy"))
                 + ")";
     }
 
     @Override
     public String serialize() {
         return "E" + "," + super.serialize()
-                + "," + this.from.format(DateTimeFormatter.ISO_DATE_TIME)
-                + "," + this.to.format(DateTimeFormatter.ISO_DATE_TIME);
+                + "," + this.startTime.format(DateTimeFormatter.ISO_DATE_TIME)
+                + "," + this.endTIme.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 }

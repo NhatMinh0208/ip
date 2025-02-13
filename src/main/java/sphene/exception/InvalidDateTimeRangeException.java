@@ -7,35 +7,36 @@ import java.time.LocalDateTime;
  */
 public class InvalidDateTimeRangeException extends SpheneException {
     private final String field;
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     /**
      * Creates a new invalid datetime range exception.
      * @param command The command where the exception occurs.
      * @param field The field(s) where the exception occurs.
-     * @param from The start datetime of the range where the exception occurs.
-     * @param to The end datetime of the range where the exception occurs.
+     * @param startTime The start datetime of the range where the exception occurs.
+     * @param endTime The end datetime of the range where the exception occurs.
      */
-    public InvalidDateTimeRangeException(String command, String field, LocalDateTime from, LocalDateTime to) {
+    public InvalidDateTimeRangeException(String command, String field,
+                                         LocalDateTime startTime, LocalDateTime endTime) {
         super(command, "");
         this.field = field;
-        this.from = from;
-        this.to = to;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
     public String toString() {
         return "Field '" + this.field + "' in command '" + this.getCommand() + "' has range "
-                + this.from + " -> "
-                + this.to + ", not a valid datetime range";
+                + this.startTime + " -> "
+                + this.endTime + ", not a valid datetime range";
     }
 
     @Override
     public String getMessage() {
         return "The field '" + this.field + "' in the request '" + this.getCommand() + "' has range "
-                + this.from + " -> "
-                + this.to
+                + this.startTime + " -> "
+                + this.endTime
                 + ". It is not a valid datetime range!";
     }
 }
