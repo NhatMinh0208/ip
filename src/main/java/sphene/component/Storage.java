@@ -27,26 +27,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /**
-     * Load all strings from the file.
-     * @return The strings loaded from the file.
-     * @throws LoadException If file cannot be loaded.
-     */
-    public List<String> load() throws LoadException {
-        try {
-            Files.createDirectories(Paths.get("data"));
-        } catch (IOException e) {
-            throw new LoadException(filePath);
-        }
-
-        try {
-            Files.createFile(Paths.get(filePath));
-        } catch (FileAlreadyExistsException e) {
-            // OK, intended behavior
-        } catch (IOException e) {
-            throw new LoadException(filePath);
-        }
-
+    private List<String> getStrings() throws LoadException {
         try {
             File taskListFile = new File(filePath);
             List<String> serializedStrings = new ArrayList<>();
@@ -58,6 +39,35 @@ public class Storage {
         } catch (Exception e) {
             throw new LoadException(filePath);
         }
+    }
+
+    private void ensureFile() throws LoadException {
+        try {
+            Files.createFile(Paths.get(filePath));
+        } catch (FileAlreadyExistsException e) {
+            // OK, intended behavior
+        } catch (IOException e) {
+            throw new LoadException(filePath);
+        }
+    }
+
+    private void ensureDirectory() throws LoadException {
+        try {
+            Files.createDirectories(Paths.get("data"));
+        } catch (IOException e) {
+            throw new LoadException(filePath);
+        }
+    }
+
+    /**
+     * Load all strings from the file.
+     * @return The strings loaded from the file.
+     * @throws LoadException If file cannot be loaded.
+     */
+    public List<String> load() throws LoadException {
+        ensureDirectory();
+        ensureFile();
+        return getStrings();
     }
 
     /**
