@@ -3,6 +3,8 @@ package sphene.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import sphene.exception.InvalidDateTimeRangeException;
+
 /**
  * A task with a start and end time.
  */
@@ -18,6 +20,7 @@ public class Event extends Task {
      */
     public Event(String content, LocalDateTime from, LocalDateTime to) {
         super(content);
+        assert !from.isAfter(to);
         this.from = from;
         this.to = to;
     }
