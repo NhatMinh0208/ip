@@ -19,6 +19,14 @@ public class Deadline extends Task {
         this.deadlineTime = deadlineTime;
     }
 
+    /**
+     * Retrieves the deadline time.
+     * @return The deadline time.
+     */
+    public LocalDateTime getDeadlineTime() {
+        return this.deadlineTime;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString()
@@ -28,5 +36,14 @@ public class Deadline extends Task {
     @Override
     public String serialize() {
         return "D" + "," + super.serialize() + "," + this.deadlineTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Deadline)) {
+            return false;
+        }
+        return super.equals(other)
+                && this.deadlineTime.equals(((Deadline) other).deadlineTime);
     }
 }

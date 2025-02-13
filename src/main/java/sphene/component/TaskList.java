@@ -105,6 +105,37 @@ public class TaskList {
         return t;
     }
 
+    private static int compareTasksByChronologicalOrder(Task a, Task b) {
+        if (a.equals(b)) {
+            return 0;
+        } else if (a instanceof ToDo) {
+            return 1;
+        } else if (b instanceof ToDo) {
+            return -1;
+        } else {
+            LocalDateTime aCompareTime = null;
+            LocalDateTime bCompareTime = null;
+
+            if (a instanceof Deadline) {
+                aCompareTime = ((Deadline) a).getDeadlineTime();
+            } else if (a instanceof Event) {
+                aCompareTime = ((Event) a).getStartTime();
+            } else {
+                assert false;
+            }
+
+            if (b instanceof Deadline) {
+                bCompareTime = ((Deadline) b).getDeadlineTime();
+            } else if (b instanceof Event) {
+                bCompareTime = ((Event) b).getStartTime();
+            } else {
+                assert false;
+            }
+
+            return aCompareTime.compareTo(bCompareTime);
+        }
+    }
+
     /**
      * Serializes the task list.
      * @return The serialized task strings from the list.
@@ -183,5 +214,12 @@ public class TaskList {
                 .filter((task) -> task.getContent().contains(query))
                 .forEach(result::addTask);
         return result;
+    }
+
+    /**
+     * Sort all tasks in the list.
+     */
+    public void sort() {
+        tasks.sort(TaskList::compareTasksByChronologicalOrder);
     }
 }

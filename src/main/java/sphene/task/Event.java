@@ -23,6 +23,23 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Retrieves the event start time.
+     * @return The event start time.
+     */
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * Retrieves the event end time.
+     * @return The event end time.
+     */
+    public LocalDateTime getEndTime() {
+        return this.endTime;
+    }
+
+
     @Override
     public String toString() {
         return "[E]" + super.toString()
@@ -36,5 +53,15 @@ public class Event extends Task {
         return "E" + "," + super.serialize()
                 + "," + this.startTime.format(DateTimeFormatter.ISO_DATE_TIME)
                 + "," + this.endTime.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Event)) {
+            return false;
+        }
+        return super.equals(other)
+                && this.startTime.equals(((Event) other).startTime)
+                && this.endTime.equals(((Event) other).endTime);
     }
 }

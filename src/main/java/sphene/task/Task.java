@@ -29,6 +29,14 @@ public abstract class Task {
         return this.getStatusIcon() + " " + this.content;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Task)) {
+            return false;
+        }
+        return this.content.equals(((Task) other).content);
+    }
+
     /**
      * Serializes the task into a string that can be stored.
      * @return The serialized task string.

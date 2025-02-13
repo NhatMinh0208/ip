@@ -21,4 +21,12 @@ public class ToDo extends Task {
     public String serialize() {
         return "T" + "," + super.serialize();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof ToDo)) {
+            return false;
+        }
+        return super.equals(other);
+    }
 }
