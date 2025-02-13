@@ -24,6 +24,7 @@ public class Storage {
      * @param filePath Path of the file to create storage object for.
      */
     public Storage(String filePath) {
+        assert filePath.startsWith("data/");
         this.filePath = filePath;
     }
 

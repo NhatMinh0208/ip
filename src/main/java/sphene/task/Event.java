@@ -18,6 +18,7 @@ public class Event extends Task {
      */
     public Event(String content, LocalDateTime startTime, LocalDateTime endTime) {
         super(content);
+        assert !startTime.isAfter(endTime);
         this.startTime = startTime;
         this.endTime = endTime;
     }
