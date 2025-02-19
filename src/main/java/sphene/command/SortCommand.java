@@ -24,7 +24,7 @@ public class SortCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
         tasks.sort();
-        ui.print(tasks.toString());
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }

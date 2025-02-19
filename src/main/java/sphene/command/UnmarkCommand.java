@@ -29,5 +29,6 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException, OutOfListRangeException {
         tasks.unmarkTask(index);
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }

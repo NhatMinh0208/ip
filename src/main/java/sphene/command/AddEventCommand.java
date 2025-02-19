@@ -55,5 +55,6 @@ public class AddEventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
         tasks.addTask(new Event(content, startTime, endTime));
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }

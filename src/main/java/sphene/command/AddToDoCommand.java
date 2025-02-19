@@ -29,5 +29,6 @@ public class AddToDoCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
         tasks.addTask(new ToDo(content));
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }

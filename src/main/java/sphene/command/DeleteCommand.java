@@ -29,5 +29,6 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException, OutOfListRangeException {
         tasks.deleteTask(index);
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }

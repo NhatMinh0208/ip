@@ -42,5 +42,6 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SaveException {
         tasks.addTask(new Deadline(content, deadlineTime));
         storage.store(tasks.serialize());
+        ui.print("You now have the following tasks:\n" + tasks.toString());
     }
 }
