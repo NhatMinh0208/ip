@@ -62,6 +62,8 @@ Marks a task in the list as done.
 
 - `[index]`: The index of the task to mark as done, as shown by `list`
 
+**Example:** `mark 1`
+
 **Output:** The chatbot displays the new task list.
 
 ## Unarking a task: `unmark`
@@ -72,6 +74,8 @@ Removes the mark of a task in the list.
 
 - `[index]`: The numerical index of the task to unmark, as shown by `list`
 
+**Example:** `unmark 2`
+
 **Output:** The chatbot displays the new task list.
 
 ## Deleting a task: `delete`
@@ -81,6 +85,8 @@ Deletes a task from the list
 **Format:** `delete [index]`
 
 - `[index]`: The index of the task to delete, as shown by `list`
+
+**Example:** `delete 4`
 
 **Output:** The chatbot displays the new task list.
 
@@ -93,9 +99,11 @@ This search is **case-sensitive**.
 
 - `[query]`: The string to search.
 
+**Example:** `find Clear`
+
 **Output:** The chatbot displays the tasks in the list, whose details contain the given string.
 
-## Sorting tasks: `task`
+## Sorting tasks: `sort`
 
 Sorts the task list in chronological order.
 
