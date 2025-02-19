@@ -46,6 +46,7 @@ public class Ui {
             window.setUi(this); // inject this Ui instance into the window
 
             stage.setScene(scene);
+            stage.setTitle("Sphene");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
