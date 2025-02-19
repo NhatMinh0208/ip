@@ -61,7 +61,7 @@ public class Storage {
     }
 
     /**
-     * Load all strings from the file.
+     * Loads all strings from the file.
      * @return The strings loaded from the file.
      * @throws LoadException If file cannot be loaded.
      */

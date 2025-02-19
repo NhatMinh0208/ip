@@ -204,7 +204,7 @@ public class TaskList {
     }
 
     /**
-     * Search for tasks whose content contains a given query string.
+     * Searches for tasks whose content contains a given query string.
      * @param query The query string.
      * @return A new `TaskList` containing the tasks whose content contains the query string.
      */
@@ -217,7 +217,7 @@ public class TaskList {
     }
 
     /**
-     * Sort all tasks in the list.
+     * Sorts all tasks in the list.
      */
     public void sort() {
         tasks.sort(TaskList::compareTasksByChronologicalOrder);
