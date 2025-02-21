@@ -102,7 +102,7 @@ public class Parser {
             int index = Integer.parseInt(m.group(1));
             return new MarkCommand(index);
         } else {
-            throw new InvalidIntException(CMD_MARK, "index", m.group(1));
+            throw new InvalidIntException(CMD_MARK, "index", params);
         }
     }
 
@@ -112,7 +112,7 @@ public class Parser {
             int index = Integer.parseInt(m.group(1));
             return new UnmarkCommand(index);
         } else {
-            throw new InvalidIntException(CMD_MARK, "index", m.group(1));
+            throw new InvalidIntException(CMD_MARK, "index", params);
         }
     }
 
@@ -122,7 +122,7 @@ public class Parser {
             int index = Integer.parseInt(m.group(1));
             return new DeleteCommand(index);
         } else {
-            throw new InvalidIntException(CMD_MARK, "index", m.group(1));
+            throw new InvalidIntException(CMD_MARK, "index", params);
         }
     }
 
